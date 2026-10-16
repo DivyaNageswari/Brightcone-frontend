@@ -83,7 +83,9 @@ export function LoginPage() {
           Sign in
         </Button>
       </form>
-      <div className="auth-reference-divider" aria-hidden="true">or</div>
+      <div className="auth-reference-divider" aria-hidden="true">
+        or
+      </div>
       <button type="button" className="auth-coming-soon" disabled aria-disabled="true">
         Continue with Microsoft · Coming soon
       </button>

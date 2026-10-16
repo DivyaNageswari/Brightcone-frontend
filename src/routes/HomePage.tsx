@@ -87,11 +87,7 @@ export function HomePage() {
           value={user.permissions.length}
           hint="Role-based access matrix"
         />
-        <StatTile
-          label="Security Health"
-          value="100%"
-          hint="HSTS, CSP, and Rotation Active"
-        />
+        <StatTile label="Security Health" value="100%" hint="HSTS, CSP, and Rotation Active" />
         <StatTile
           label="Current Role"
           value={user.role.toUpperCase()}
@@ -161,14 +157,14 @@ export function HomePage() {
       />
 
       {/* Form Modal for Feedback */}
-      <FormModal
-        open={modalOpen}
-        onClose={() => setModalOpen(false)}
-        title="Share Your Feedback"
-      >
-        <form onSubmit={handleFeedbackSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <FormModal open={modalOpen} onClose={() => setModalOpen(false)} title="Share Your Feedback">
+        <form
+          onSubmit={handleFeedbackSubmit}
+          style={{ display: 'flex', flexDirection: 'column', gap: 16 }}
+        >
           <p style={{ color: 'var(--muted)', margin: 0 }}>
-            Help us improve the Brightcone HR experience. Your comments are reviewed by system administrators.
+            Help us improve the Brightcone HR experience. Your comments are reviewed by system
+            administrators.
           </p>
           <TextField
             label="Feedback or Suggestion"
@@ -219,13 +215,21 @@ export function HomePage() {
             Acknowledge System Notice
           </Button>
           {can('audit:read') && (
-            <Link to="/audit" onClick={() => setDrawerOpen(false)} style={{ textDecoration: 'none' }}>
+            <Link
+              to="/audit"
+              onClick={() => setDrawerOpen(false)}
+              style={{ textDecoration: 'none' }}
+            >
               <Button variant="ghost" block>
                 Browse Audit Log
               </Button>
             </Link>
           )}
-          <Link to="/change-password" onClick={() => setDrawerOpen(false)} style={{ textDecoration: 'none' }}>
+          <Link
+            to="/change-password"
+            onClick={() => setDrawerOpen(false)}
+            style={{ textDecoration: 'none' }}
+          >
             <Button variant="ghost" block>
               Change Password
             </Button>

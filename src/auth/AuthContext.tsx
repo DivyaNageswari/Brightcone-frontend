@@ -93,7 +93,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       status,
       user,
       notice,
-      can: (permission) => !!user?.permissions.some((p) => p === permission || p.startsWith(`${permission}:`)),
+      can: (permission) =>
+        !!user?.permissions.some((p) => p === permission || p.startsWith(`${permission}:`)),
       signIn: async (email, password, remember) => {
         const session = await authApi.login(email, password, remember)
         adoptSession(session)

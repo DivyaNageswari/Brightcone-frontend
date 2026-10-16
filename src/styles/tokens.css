@@ -1,96 +1,37 @@
 /* Brightcone People Plus design system v3: brand → semantic → accent. */
 :root {
-  color-scheme: light;
-  font-family: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
-
-  /* Immutable brand tokens */
-  --brand-navy: #0b2641;
-  --brand: #0b6fdb;
-  --brand-2: #0ba6cc;
-  --brand-soft: #e3f0ff;
-  --brand-teal: #12c2a2;
-  --on-brand: #fff;
-
-  /* Light semantic theme (default) */
-  --bg: #f4f6fb;
-  --surface: #fff;
-  --surface-2: #f8fafd;
-  --line: #e6eaf3;
-  --text: #0e1730;
-  --muted: #5b6787;
-  --faint: #8d97b0;
-  --side-bg: #06101f;
-  --side-text: #c9d3ee;
-  --side-active: #fff;
-  --ok: #15a36b;
-  --ok-bg: #e3f6ee;
-  --warn: #c98200;
-  --warn-bg: #fff4db;
-  --bad: #d93d4a;
-  --bad-bg: #fde8ea;
-  --info: var(--brand);
-  --info-bg: var(--brand-soft);
-  --shadow: 0 1px 2px rgb(14 23 48 / 4%), 0 10px 30px -18px rgb(14 23 48 / 20%);
-  --shadow-lg: 0 2px 4px rgb(14 23 48 / 5%), 0 22px 44px -22px rgb(14 23 48 / 32%);
-  --focus: 0 0 0 4px color-mix(in srgb, var(--brand) 16%, transparent);
-  --ac: var(--brand);
-
-  /* Shared compatibility aliases for the existing app primitives */
-  --brand-hover: color-mix(in srgb, var(--brand) 90%, #000);
-  --border: var(--line);
-  --radius: 18px;
-  --radius-sm: 10px;
-  --r-lg: 18px;
-  --r-md: 10px;
-  --r-sm: 7px;
-  --pp-brand: var(--brand);
-  --pp-brand-bright: #0b87ff;
-  --pp-cyan: var(--brand-2);
-  --pp-bg: var(--bg);
-  --pp-surface: var(--surface);
-  --pp-surface-2: var(--surface-2);
-  --pp-line: var(--line);
-  --pp-text: var(--text);
-  --pp-muted: var(--muted);
-  --pp-faint: var(--faint);
-  --pp-side: var(--side-bg);
-  --pp-side-text: var(--side-text);
-  --pp-ok: var(--ok);
-  --pp-ok-bg: var(--ok-bg);
-  --pp-warn: var(--warn);
-  --pp-warn-bg: var(--warn-bg);
-  --pp-shadow: var(--shadow);
-  --pp-radius: var(--r-lg);
+  @apply [color-scheme:light] [font-family:'Figtree',_system-ui,_-apple-system,_'Segoe_UI',_sans-serif] [--brand-navy:#0b2641] [--brand:#0b6fdb] [--brand-2:#0ba6cc] [--brand-soft:#e3f0ff] [--brand-teal:#12c2a2] [--on-brand:#fff] [--bg:#f4f6fb] [--surface:#fff] [--surface-2:#f8fafd] [--line:#e6eaf3] [--text:#0e1730] [--muted:#5b6787] [--faint:#8d97b0] [--side-bg:#06101f] [--side-text:#c9d3ee] [--side-active:#fff] [--ok:#15a36b] [--ok-bg:#e3f6ee] [--warn:#c98200] [--warn-bg:#fff4db] [--bad:#d93d4a] [--bad-bg:#fde8ea] [--info:var(--brand)] [--info-bg:var(--brand-soft)] [--shadow:0_1px_2px_rgb(14_23_48_/_4%),_0_10px_30px_-18px_rgb(14_23_48_/_20%)] [--shadow-lg:0_2px_4px_rgb(14_23_48_/_5%),_0_22px_44px_-22px_rgb(14_23_48_/_32%)] [--focus:0_0_0_4px_color-mix(in_srgb,_var(--brand)_16%,_transparent)] [--ac:var(--brand)] [--brand-hover:color-mix(in_srgb,_var(--brand)_90%,_#000)] [--border:var(--line)] [--radius:18px] [--radius-sm:10px] [--r-lg:18px] [--r-md:10px] [--r-sm:7px] [--pp-brand:var(--brand)] [--pp-brand-bright:#0b87ff] [--pp-cyan:var(--brand-2)] [--pp-bg:var(--bg)] [--pp-surface:var(--surface)] [--pp-surface-2:var(--surface-2)] [--pp-line:var(--line)] [--pp-text:var(--text)] [--pp-muted:var(--muted)] [--pp-faint:var(--faint)] [--pp-side:var(--side-bg)] [--pp-side-text:var(--side-text)] [--pp-ok:var(--ok)] [--pp-ok-bg:var(--ok-bg)] [--pp-warn:var(--warn)] [--pp-warn-bg:var(--warn-bg)] [--pp-shadow:var(--shadow)] [--pp-radius:var(--r-lg)];
 }
 
 :root[data-theme='dark'] {
-  color-scheme: dark;
-  --bg: #070e22;
-  --surface: #0e1833;
-  --surface-2: #122042;
-  --line: #1b2950;
-  --text: #e8edfb;
-  --muted: #9aa6c6;
-  --faint: #6a779a;
-  --side-bg: #050b1c;
-  --side-text: #93a0c4;
-  --brand-soft: #16275a;
-  --ok-bg: #0e3326;
-  --warn-bg: #3a2c08;
-  --bad-bg: #3d141b;
-  --shadow: 0 1px 2px rgb(0 0 0 / 35%), 0 12px 32px -18px rgb(0 0 0 / 70%);
-  --shadow-lg: 0 2px 6px rgb(0 0 0 / 40%), 0 26px 50px -22px rgb(0 0 0 / 80%);
-  --focus: 0 0 0 4px color-mix(in srgb, var(--ac, var(--brand)) 20%, transparent);
-  --pp-brand-bright: #43a2ff;
+  @apply [color-scheme:dark] [--bg:#070e22] [--surface:#0e1833] [--surface-2:#122042] [--line:#1b2950] [--text:#e8edfb] [--muted:#9aa6c6] [--faint:#6a779a] [--side-bg:#050b1c] [--side-text:#93a0c4] [--brand-soft:#16275a] [--ok-bg:#0e3326] [--warn-bg:#3a2c08] [--bad-bg:#3d141b] [--shadow:0_1px_2px_rgb(0_0_0_/_35%),_0_12px_32px_-18px_rgb(0_0_0_/_70%)] [--shadow-lg:0_2px_6px_rgb(0_0_0_/_40%),_0_26px_50px_-22px_rgb(0_0_0_/_80%)] [--focus:0_0_0_4px_color-mix(in_srgb,_var(--ac,_var(--brand))_20%,_transparent)] [--pp-brand-bright:#43a2ff];
 }
 
 /* App accent palette */
-[data-app='people'] { --ac: #12a58e; }
-[data-app='recruit'] { --ac: #7c5cff; }
-[data-app='payroll'] { --ac: #0f9f6e; }
-[data-app='expense'] { --ac: #e07a1d; }
-[data-app='sign'] { --ac: #d9466f; }
-[data-app='connect'] { --ac: #0ba6cc; }
-[data-app='learn'] { --ac: #6366f1; }
-[data-app='shift'] { --ac: #3b82c4; }
-[data-app='plus'] { --ac: #0b6fdb; }
+[data-app='people'] {
+  @apply [--ac:#12a58e];
+}
+[data-app='recruit'] {
+  @apply [--ac:#7c5cff];
+}
+[data-app='payroll'] {
+  @apply [--ac:#0f9f6e];
+}
+[data-app='expense'] {
+  @apply [--ac:#e07a1d];
+}
+[data-app='sign'] {
+  @apply [--ac:#d9466f];
+}
+[data-app='connect'] {
+  @apply [--ac:#0ba6cc];
+}
+[data-app='learn'] {
+  @apply [--ac:#6366f1];
+}
+[data-app='shift'] {
+  @apply [--ac:#3b82c4];
+}
+[data-app='plus'] {
+  @apply [--ac:#0b6fdb];
+}

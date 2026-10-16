@@ -1,13 +1,6 @@
 import { createContext, useContext } from 'react'
 
-export type ToastType =
-  | 'success'
-  | 'error'
-  | 'warning'
-  | 'info'
-  | 'ok'
-  | 'bad'
-  | 'warn'
+export type ToastType = 'success' | 'error' | 'warning' | 'info' | 'ok' | 'bad' | 'warn'
 
 export interface ToastInput {
   title?: string

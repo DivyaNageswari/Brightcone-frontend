@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run check:lines && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
     "format": "prettier --write .",
@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "gen:api": "openapi-typescript ./openapi.json -o src/api/schema.d.ts"
+    "gen:api": "openapi-typescript ./openapi.json -o src/api/schema.d.ts && node scripts/split-openapi-types.mjs",
+    "check:lines": "node scripts/check-line-limits.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.64.0",
+    "@tailwindcss/vite": "^4.3.3",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.3",
@@ -39,7 +41,8 @@
     "openapi-typescript": "^7.13.0",
     "oxlint": "^1.81.0",
     "prettier": "^3.9.10",
-    "typescript": "~6.0.2",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~5.9.3",
     "vite": "^8.3.0",
     "vitest": "^4.1.11"
   }

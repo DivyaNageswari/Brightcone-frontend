@@ -63,7 +63,9 @@ test('a person signs in, lands on home, and signs out again', async ({ page }) =
   await page.getByRole('button', { name: 'Sign in' }).click()
 
   await expect(page).toHaveURL(/\/$/)
-  await expect(page.getByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ })).toBeVisible()
+  await expect(
+    page.getByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ }),
+  ).toBeVisible()
 
   await page.locator('.pp-sidebar-logout').click()
 
@@ -99,14 +101,18 @@ test('an existing refresh cookie restores the session on reload', async ({ page 
   await page.goto('/')
 
   await expect(page).toHaveURL(/\/$/)
-  await expect(page.getByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ })).toBeVisible()
+  await expect(
+    page.getByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ }),
+  ).toBeVisible()
 })
 
 test('the dark theme can be turned on and is remembered', async ({ page }) => {
   await stubAuth(page, { signedInFromTheStart: true })
 
   await page.goto('/')
-  await expect(page.getByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ })).toBeVisible()
+  await expect(
+    page.getByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ }),
+  ).toBeVisible()
 
   await page.getByRole('button', { name: /Switch to (dark|light) theme/ }).click()
 

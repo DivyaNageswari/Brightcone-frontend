@@ -37,8 +37,16 @@ const isAdmin = (role?: string) => role === 'hr_admin'
 
 function ComingSoonRoute() {
   const { module = 'This module' } = useParams()
-  const title = module.split('-').map((word) => word ? `${word[0].toUpperCase()}${word.slice(1)}` : '').join(' ')
-  return <SimpleView title={title} sub="This module will be available when its live backend service is connected" />
+  const title = module
+    .split('-')
+    .map((word) => (word ? `${word[0].toUpperCase()}${word.slice(1)}` : ''))
+    .join(' ')
+  return (
+    <SimpleView
+      title={title}
+      sub="This module will be available when its live backend service is connected"
+    />
+  )
 }
 
 function IndexRoute() {
@@ -98,7 +106,15 @@ export default function App() {
           >
             <Route index element={<IndexRoute />} />
             <Route path="people" element={<PeopleRoute />} />
-            <Route path="people-dashboard" element={<SimpleView title="People dashboard" sub="Workforce information from connected People services" />} />
+            <Route
+              path="people-dashboard"
+              element={
+                <SimpleView
+                  title="People dashboard"
+                  sub="Workforce information from connected People services"
+                />
+              }
+            />
             <Route path="coming-soon/:module" element={<ComingSoonRoute />} />
             <Route path="approvals" element={<Approvals />} />
             <Route path="reports" element={<Reports />} />

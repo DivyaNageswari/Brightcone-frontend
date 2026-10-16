@@ -20,7 +20,8 @@ interface AuditPageResponse {
 
 const actionTone = (action: string): 'ok' | 'warn' | 'bad' | 'info' => {
   if (action.includes('created') || action.includes('unlocked')) return 'ok'
-  if (action.includes('failed') || action.includes('locked') || action.includes('disabled')) return 'bad'
+  if (action.includes('failed') || action.includes('locked') || action.includes('disabled'))
+    return 'bad'
   if (action.includes('reset') || action.includes('role')) return 'warn'
   return 'info'
 }
@@ -86,7 +87,9 @@ export function AuditLogPage() {
 
       <Card>
         {error ? (
-          <p style={{ color: 'var(--bad)' }}>Failed to load audit trail: {(error as Error).message}</p>
+          <p style={{ color: 'var(--bad)' }}>
+            Failed to load audit trail: {(error as Error).message}
+          </p>
         ) : (
           <DataTable
             columns={columns}

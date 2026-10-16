@@ -24,26 +24,39 @@ Vite serves the app at `http://localhost:5173`, proxies `/api` to `http://localh
 ## Verification
 
 ```powershell
+npm run check:lines
 npm run lint
 npm test
 npm run build
 npm run test:e2e
 ```
 
+The build enforces a maximum of 400 lines per hand-maintained source file. Styling uses Tailwind CSS v4 through the Vite plugin; component styles are expressed with Tailwind utilities and design tokens, with each stylesheet kept as a focused module.
+
 Current local verification: lint passed, unit tests passed (2 files, 16 tests), production build passed. Playwright E2E did not complete in the audit environment. It stubs the API and does not prove backend integration.
 
 ## Structure
 
 ```text
-src/app entry and router
-src/api API client and generated contract types
-src/auth auth state and route guards
-src/components shared UI and application shell
-src/features domain feature modules
-src/people-plus suite-specific layout/navigation
-src/routes route-level pages
-src/styles design tokens and global styles
-e2e browser tests
+-src/app entry and router
+-src/api API client and generated contract types
+-src/auth auth state and route guards
+-src/components shared UI and application shell
+-src/features domain feature modules
+-src/people-plus suite-specific layout/navigation
+-src/routes route-level pages
+-src/styles design tokens and global styles
+-e2e browser tests
+src/main.tsx                    entry point and providers
+src/api/                        API client and generated contract
+src/auth/                       authentication state and route guards
+src/components/                 shared UI, shell, and toast components
+src/components/ui/              primitives, overlays, and data table
+src/people-plus/                suite dashboard and navigation
+src/routes/                     route-level pages
+src/styles/                     Tailwind tokens and focused style modules
+scripts/                        API type splitting and line-limit check
+e2e/                            browser tests
 ```
 
 See `STATUS.md` for branch tasks and the backend repository’s `PROJECT_ASSESSMENT.md` for API, schema, security and release readiness.
