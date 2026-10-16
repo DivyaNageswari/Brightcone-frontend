@@ -121,9 +121,9 @@ describe('signing in and out', () => {
     await userEvent.type(screen.getByLabelText('Password'), 'correct horse battery staple')
     await userEvent.click(screen.getByRole('button', { name: 'Sign in' }))
 
-    expect(await screen.findByRole('heading', { name: 'Welcome, Rahul' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ })).toBeInTheDocument()
 
-    await userEvent.click(screen.getByRole('button', { name: 'Sign out' }))
+    await userEvent.click(screen.getAllByRole('button', { name: 'Sign out' })[0])
     expect(await screen.findByRole('heading', { name: 'Sign in' })).toBeInTheDocument()
     expect(screen.getByText("You've signed out.")).toBeInTheDocument()
     expect(fake.count('POST /auth/logout')).toBe(1)
@@ -132,7 +132,7 @@ describe('signing in and out', () => {
   it('restores the session after a page reload', async () => {
     mockApi({ 'POST /auth/refresh': () => jsonResponse(sessionFor(employee)) })
     renderAt('/')
-    expect(await screen.findByRole('heading', { name: 'Welcome, Rahul' })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ })).toBeInTheDocument()
   })
 
   it('forces a password change when HR set a temporary password', async () => {

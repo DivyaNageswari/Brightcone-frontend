@@ -20,7 +20,11 @@ export function currentTheme(): 'light' | 'dark' {
 
 export function initTheme() {
   const v = stored()
-  if (v) document.documentElement.dataset.theme = v
+  if (v) {
+    document.documentElement.dataset.theme = v
+  } else {
+    document.documentElement.dataset.theme = 'light'
+  }
 }
 
 export function toggleTheme(): 'light' | 'dark' {

@@ -32,7 +32,9 @@ async function stubAuth(page: Page, opts: { signedInFromTheStart?: boolean } = {
     route.fulfill({
       status: opts.signedInFromTheStart ? 200 : 401,
       contentType: 'application/json',
-      body: opts.signedInFromTheStart ? JSON.stringify(session) : JSON.stringify({ error: 'unauthorized' }),
+      body: opts.signedInFromTheStart
+        ? JSON.stringify(session)
+        : JSON.stringify({ error: 'unauthorized' }),
     }),
   )
 
@@ -61,9 +63,9 @@ test('a person signs in, lands on home, and signs out again', async ({ page }) =
   await page.getByRole('button', { name: 'Sign in' }).click()
 
   await expect(page).toHaveURL(/\/$/)
-  await expect(page.getByRole('heading', { name: /Welcome, Rahul/ })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ })).toBeVisible()
 
-  await page.getByRole('button', { name: 'Sign out' }).click()
+  await page.locator('.pp-sidebar-logout').click()
 
   await expect(page).toHaveURL(/\/login$/)
 })
@@ -75,7 +77,10 @@ test('the wrong password shows the server message and stays on the page', async 
     route.fulfill({
       status: 401,
       contentType: 'application/json',
-      body: JSON.stringify({ error: 'unauthorized', description: 'Email or password is incorrect.' }),
+      body: JSON.stringify({
+        error: 'unauthorized',
+        description: 'Email or password is incorrect.',
+      }),
     }),
   )
 
@@ -94,14 +99,14 @@ test('an existing refresh cookie restores the session on reload', async ({ page 
   await page.goto('/')
 
   await expect(page).toHaveURL(/\/$/)
-  await expect(page.getByRole('heading', { name: /Welcome, Rahul/ })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ })).toBeVisible()
 })
 
 test('the dark theme can be turned on and is remembered', async ({ page }) => {
   await stubAuth(page, { signedInFromTheStart: true })
 
   await page.goto('/')
-  await expect(page.getByRole('heading', { name: /Welcome, Rahul/ })).toBeVisible()
+  await expect(page.getByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ })).toBeVisible()
 
   await page.getByRole('button', { name: /Switch to (dark|light) theme/ }).click()
 

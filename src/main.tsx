@@ -6,6 +6,7 @@ import App from './App'
 import { AuthProvider } from './auth/AuthContext'
 import { initTheme } from './theme'
 import './styles/global.css'
+import './people-plus/people-plus.css'
 
 initTheme()
 

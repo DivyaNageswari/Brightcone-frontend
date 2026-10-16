@@ -6,8 +6,11 @@ import { Avatar, Button } from './ui'
 
 type NavItem = { to: string; label: string; permission?: string }
 
-// Menu entries appear automatically for roles that hold the permission. Later phases add lines here.
-const NAV: NavItem[] = [{ to: '/', label: 'Home' }]
+const NAV: NavItem[] = [
+  { to: '/', label: 'Home' },
+  { to: '/audit', label: 'Audit Log', permission: 'audit:read' },
+  { to: '/ui-kit', label: 'UI Showcase' },
+]
 
 const ROLE_LABEL: Record<string, string> = {
   employee: 'Employee',

@@ -507,4 +507,333 @@ a {
   .progress-fill {
     transition: none;
   }
+  .modal-box,
+  .drawer-panel,
+  .toast {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ---------- P1-21: Modal, ConfirmDialog, Drawer, Toast, DataTable ---------- */
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(11 18 32 / 60%);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 100;
+  animation: modal-fade 0.18s ease-out;
+}
+.modal-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 25%);
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modal-pop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.modal-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+}
+.modal-close:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Confirm Dialog */
+.confirm-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.confirm-message {
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Drawer */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgb(11 18 32 / 50%);
+  backdrop-filter: blur(2px);
+  z-index: 100;
+  animation: modal-fade 0.2s ease-out;
+}
+.drawer-panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: -4px 0 24px rgb(0 0 0 / 18%);
+  display: flex;
+  flex-direction: column;
+  z-index: 101;
+  max-width: 90vw;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.drawer-right {
+  right: 0;
+  animation: drawer-slide-right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.drawer-left {
+  left: 0;
+  border-left: none;
+  border-right: 1px solid var(--border);
+  box-shadow: 4px 0 24px rgb(0 0 0 / 18%);
+  animation: drawer-slide-left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.drawer-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.drawer-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Toasts */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 120;
+  pointer-events: none;
+  max-width: 380px;
+  width: calc(100% - 48px);
+}
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 14%);
+  font-size: 0.875rem;
+  font-weight: 500;
+  animation: toast-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.toast-ok {
+  border-left: 4px solid var(--ok);
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+.toast-bad {
+  border-left: 4px solid var(--bad);
+  background: var(--bad-bg);
+  color: var(--bad);
+}
+.toast-warn {
+  border-left: 4px solid var(--warn);
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+.toast-info {
+  border-left: 4px solid var(--info);
+  background: var(--info-bg);
+  color: var(--info);
+}
+.toast-msg {
+  flex: 1;
+  word-break: break-word;
+}
+.toast-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  opacity: 0.6;
+  cursor: pointer;
+}
+.toast-close:hover {
+  opacity: 1;
+}
+
+/* DataTable */
+.table-kit {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.table-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.search-input {
+  max-width: 300px;
+  width: 100%;
+}
+.table-count-badge {
+  font-size: 0.8125rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+.data-table th {
+  padding: 12px 16px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  user-select: none;
+}
+.data-table th.sortable {
+  cursor: pointer;
+}
+.data-table th.sortable:hover {
+  color: var(--text);
+}
+.th-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sort-icon {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.data-table tbody tr:hover {
+  background: var(--surface-2);
+}
+.table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px;
+}
+.pagination-info {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.pagination-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+/* Animations */
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes modal-pop {
+  from {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes drawer-slide-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes drawer-slide-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes toast-in {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
