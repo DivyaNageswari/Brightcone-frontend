@@ -1,4 +1,4 @@
-export type AppKey = 'people' | 'recruit' | 'payroll' | 'expense' | 'sign' | 'connect' | 'learn' | 'shift' | 'plus'
+﻿export type AppKey = 'people' | 'recruit' | 'payroll' | 'expense' | 'sign' | 'connect' | 'learn' | 'shift' | 'plus'
 export type AppDefinition = { key: AppKey; name: string; icon: string; color: string; description: string; path: string }
 export type SideLink = { label: string; to: string; icon: string; group: string; permission?: string; comingSoon?: boolean }
 
@@ -19,24 +19,79 @@ const link = (label: string, to: string, icon: string, group: string, permission
 
 export const NAV_BY_ROLE: Record<'admin' | 'employee', Record<AppKey, SideLink[]>> = {
   admin: {
-    plus: [link('Suite dashboard', '/', 'dashboard', 'Overview'), link('Approvals inbox', '/approvals', 'inbox', 'Overview'), link('Reports & analytics', '/reports', 'chart', 'Overview'), link('Settings & access', '/settings', 'gear', 'Administration'), link('Audit log', '/audit', 'shield', 'Administration', 'audit:read')],
-    people: [link('People dashboard', '/people-dashboard', 'dashboard', 'Overview'), link('Portal accounts', '/employees', 'users', 'Workforce', 'users:manage'), soon('Org structure', 'org', 'Workforce'), soon('Onboarding', 'login', 'Workforce'), soon('Exits & offboarding', 'logout', 'Workforce'), soon('Leave management', 'leave', 'Time off'), soon('Performance', 'chart', 'Operations'), soon('Assets', 'laptop', 'Operations'), soon('Documents & letters', 'doc', 'Operations'), soon('Helpdesk queue', 'chat', 'Operations')],
+    plus: [
+      link('Suite dashboard', '/', 'dashboard', 'Overview'),
+      link('Approvals inbox', '/approvals', 'inbox', 'Overview'),
+      link('Reports & analytics', '/reports', 'chart', 'Overview'),
+      link('Settings & access', '/settings', 'gear', 'Administration'),
+      link('Audit log', '/audit', 'shield', 'Administration', 'audit:read'),
+    ],
+    people: [
+      link('People dashboard', '/people-dashboard', 'dashboard', 'Overview'),
+      link('Portal accounts', '/employees', 'users', 'Workforce', 'users:manage'),
+      link('HR Helpdesk Queue', '/helpdesk', 'chat', 'Support'),
+      soon('Org structure', 'org', 'Workforce'),
+      soon('Onboarding', 'login', 'Workforce'),
+      soon('Exits & offboarding', 'logout', 'Workforce'),
+      soon('Leave management', 'leave', 'Time off'),
+      soon('Performance', 'chart', 'Operations'),
+      soon('Assets', 'laptop', 'Operations'),
+      soon('Documents & letters', 'doc', 'Operations'),
+    ],
     recruit: [soon('Recruit dashboard', 'dashboard', 'Overview'), soon('Pipeline & jobs', 'briefcase', 'Hiring')],
-    payroll: [soon('Payroll dashboard', 'dashboard', 'Overview'), soon('Payroll runs', 'pay', 'Payroll'), soon('Benefits', 'heart', 'Payroll')],
-    expense: [soon('Expense dashboard', 'dashboard', 'Overview'), soon('All claims', 'receipt', 'Claims')],
+    payroll: [
+      link('Payroll dashboard', '/payroll', 'dashboard', 'Overview'),
+      link('Monthly payroll', '/payroll/admin', 'pay', 'Payroll & compliance'),
+      link('Salary structure', '/payroll/salary-structure', 'list', 'Payroll & compliance'),
+      link('Salary revision & appraisals', '/payroll/salary-structure', 'chart', 'Payroll & compliance'),
+      link('Payslip records', '/pay', 'download', 'Payroll & compliance'),
+      link('PF & ESI compliance', '/payroll/salary-structure', 'shield', 'Payroll & compliance'),
+      link('Statutory compliance', '/payroll/office-expense', 'shield', 'Payroll & compliance'),
+      link('Payroll runs', '/payroll/admin', 'pay', 'Payroll'),
+      link('Benefits', '/payroll/office-expense', 'heart', 'Payroll'),
+    ],
+    expense: [
+      link('Expense dashboard', '/expenses', 'dashboard', 'Overview'),
+      link('Office expenses', '/payroll/office-expense', 'receipt', 'Office expenses'),
+      link('All claims', '/payroll/finance-expenses', 'receipt', 'Claims'),
+    ],
     sign: [soon('Sign dashboard', 'dashboard', 'Overview'), soon('Signature requests', 'pen', 'Documents'), soon('Templates', 'doc', 'Documents')],
-    connect: [soon('Company feed', 'chat', 'Overview'), soon('Announcements', 'mega', 'Communicate'), soon('People directory', 'users', 'Communicate')],
+    connect: [
+      link('Company Feed', '/feed', 'chat', 'Overview'),
+      link('HR Helpdesk', '/helpdesk', 'chat', 'Support'),
+      soon('People directory', 'users', 'Communicate'),
+    ],
     learn: [soon('Learn dashboard', 'dashboard', 'Overview'), soon('Courses', 'learn', 'Catalogue')],
     shift: [soon('Weekly roster', 'calendar', 'Overview'), soon('Swap requests', 'swap', 'Manage'), soon('Attendance & shifts', 'clock', 'Manage')],
   },
   employee: {
     plus: [link('My dashboard', '/', 'home', 'Overview')],
-    people: [soon('My profile', 'user', 'Me'), soon('Leave', 'leave', 'Me'), soon('Attendance', 'clock', 'Me'), soon('Goals & reviews', 'chart', 'Grow'), soon('Documents & letters', 'doc', 'Workplace'), soon('My assets', 'laptop', 'Workplace'), soon('HR helpdesk', 'chat', 'Workplace'), soon('Resignation', 'logout', 'Workplace')],
+    people: [
+      link('HR Helpdesk', '/helpdesk', 'chat', 'Workplace'),
+      soon('My profile', 'user', 'Me'),
+      soon('Leave', 'leave', 'Me'),
+      soon('Attendance', 'clock', 'Me'),
+      soon('Goals & reviews', 'chart', 'Grow'),
+      soon('Documents & letters', 'doc', 'Workplace'),
+      soon('My assets', 'laptop', 'Workplace'),
+      soon('Resignation', 'logout', 'Workplace'),
+    ],
     recruit: [soon('Jobs & referrals', 'briefcase', 'Careers')],
-    payroll: [soon('Payslips & tax', 'pay', 'Pay'), soon('Benefits', 'heart', 'Pay')],
-    expense: [soon('My expenses', 'receipt', 'Claims')],
+    payroll: [
+      link('Payroll dashboard', '/payroll', 'dashboard', 'Overview'),
+      link('Payslip records', '/pay', 'download', 'Payroll & compliance'),
+      link('Salary structure', '/payroll/salary-structure', 'list', 'Payroll & compliance'),
+    ],
+    expense: [
+      link('Expense dashboard', '/expenses', 'dashboard', 'Overview'),
+      link('My claims', '/my-expenses', 'receipt', 'Claims'),
+    ],
     sign: [soon('Documents to sign', 'pen', 'Documents')],
-    connect: [soon('Company feed', 'chat', 'Community'), soon('People directory', 'users', 'Community')],
+    connect: [
+      link('Company Feed', '/feed', 'chat', 'Community'),
+      link('HR Helpdesk', '/helpdesk', 'chat', 'Support'),
+      soon('People directory', 'users', 'Community'),
+    ],
     learn: [soon('My learning', 'learn', 'Learning')],
     shift: [soon('My schedule', 'calendar', 'Schedule')],
   },
@@ -47,9 +102,13 @@ export function getAppForPath(path: string): AppDefinition {
     if (path === app.path) return app
     if (path.startsWith(app.path + '/') && app.path !== '/') return app
   }
+  if (path.startsWith('/payroll') || path === '/pay') return APPS.find((app) => app.key === 'payroll')!
+  if (path.startsWith('/expense') || path.startsWith('/my-expense') || path === '/office-expenses') return APPS.find((app) => app.key === 'expense')!
+  if (path === '/feed' || path === '/helpdesk' || path.startsWith('/engagement')) return APPS.find((app) => app.key === 'connect')!
   if (path === '/people-dashboard' || path === '/employees') return APPS.find((app) => app.key === 'people')!
   if (path === '/approvals' || path === '/reports' || path === '/settings' || path === '/audit') return APPS.find((app) => app.key === 'plus')!
   return APPS.find((app) => app.key === 'plus')!
 }
 
-export const initials = (name: string) => name.split(/\s+/).map((part) => part[0]).slice(0, 2).join('').toUpperCase()
+export const initials = (name: string) =>
+  name.split(/\s+/).map((part) => part[0]).slice(0, 2).join('').toUpperCase()

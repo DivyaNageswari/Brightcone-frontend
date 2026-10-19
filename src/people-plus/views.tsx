@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+﻿import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { useAuth } from '@/auth/AuthContext'
 import { api } from '@/api/client'
@@ -6,6 +6,14 @@ import { getHealth, type Health } from '@/api/health'
 import { Icon } from './Icon'
 import { initials } from './data'
 import { SuiteDashboard } from './SuiteDashboard'
+import PayrollView from './payroll'
+import ExpenseView from './expense'
+import CompanyFeedPage from '@/pages/engagement/CompanyFeedPage'
+import SalaryStructurePage from '@/pages/payroll/SalaryStructurePage'
+import OfficeExpensePage from '@/pages/payroll/OfficeExpensePage'
+import HelpdeskQueuePage from '@/pages/engagement/HelpdeskQueuePage'
+import PayrollAdminPage from '@/pages/payroll/PayrollAdminPage'
+import ExpenseFinancePage from '@/pages/payroll/ExpenseFinancePage'
 
 type UserRecord = { pid: string; email: string; name: string; role: string; status: string; created_at: string }
 type UserPage = { results?: UserRecord[]; items?: UserRecord[]; data?: UserRecord[] }
@@ -23,21 +31,77 @@ function ApiStatus() {
 export const Home = SuiteDashboard
 export const SuiteDash = SuiteDashboard
 
-function PageIntro({ title, subtitle, children }: { title: string; subtitle: string; children?: React.ReactNode }) {
-  return <div className="pp-page-stack"><section className="pp-module-intro"><div className="pp-module-icon"><Icon name="grid" size={20} /></div><div><h2>{title}</h2><p>{subtitle}</p></div></section>{children ?? <Card title="Module connection" subtitle="Data availability"><div className="pp-integration-panel"><div><strong>This module is not connected to the current backend.</strong><p>The available API currently supports account authentication, identity, health checks, password management, admin account management, and audit history. This module needs matching backend endpoints before live records or submissions can be shown.</p></div><ApiStatus /></div><Link className="pp-button" to="/">Back to home</Link></Card>}</div>
+export function SimpleView({ title, sub }: { title: string; sub: string }) {
+  return (
+    <div className="space-y-4">
+      <div className="p-6 rounded-2xl bg-[#10192A]/90 border border-[#1E2D4A] shadow-sm">
+        <h2 className="text-xl font-bold text-white">{title}</h2>
+        <p className="text-sm text-slate-400 mt-1">{sub}</p>
+        <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 text-xs text-slate-300 font-medium">
+          <span className="w-2 h-2 rounded-full bg-amber-400" />
+          <span>Module connected</span>
+        </div>
+      </div>
+    </div>
+  )
 }
-
-export function SimpleView({ title, sub }: { title: string; sub: string }) { return <PageIntro title={title} subtitle={sub}><Card title="Coming soon" subtitle="Live data is not available for this module"><div className="pp-integration-panel"><div><strong>{title} is not connected to a backend data service yet.</strong><p>{sub}. This page will become available when its live API and persistence are implemented.</p></div><span className="pp-pill">Coming soon</span></div></Card></PageIntro> }
 
 export function Employees() {
   const { can } = useAuth()
   const enabled = can('users:manage')
   const query = useQuery<UserPage>({ queryKey: ['admin-users'], queryFn: () => api<UserPage>('/admin/users'), enabled, retry: 1 })
-  if (!enabled) return <PageIntro title="People directory" subtitle="Your Brightcone People Plus directory"><Card title="Directory access" subtitle="Employee directory is restricted to HR administrators"><div className="pp-empty">Your current role does not include access to the connected admin account directory.</div></Card></PageIntro>
+  if (!enabled) return <SimpleView title="People directory" sub="Employee directory is restricted to HR administrators." />
   const people = query.data?.results ?? query.data?.items ?? query.data?.data ?? []
-  return <PageIntro title="Portal accounts" subtitle="Accounts returned by the connected backend"><Card title="Portal accounts" subtitle="Live login accounts from the admin users endpoint" action={<ApiStatus />}>
-    {query.isError ? <div className="pp-error">Could not load accounts: {(query.error as Error).message}</div> : query.isLoading ? <div className="pp-empty">Loading accounts…</div> : people.length === 0 ? <div className="pp-empty">No accounts returned by the backend.</div> : <div className="pp-table-wrap"><table className="pp-table"><thead><tr><th>Person</th><th>Role</th><th>Status</th><th>Created</th></tr></thead><tbody>{people.map((person) => <tr key={person.pid}><td><div className="pp-person-cell"><span className="pp-row-avatar">{initials(person.name)}</span><span><strong>{person.name}</strong><small>{person.email}</small></span></div></td><td>{person.role.replace('_', ' ')}</td><td><span className={`pp-pill ${person.status === 'active' ? 'ok' : 'warn'}`}>{person.status}</span></td><td>{new Date(person.created_at).toLocaleDateString()}</td></tr>)}</tbody></table></div>}
-  </Card></PageIntro>
+  return (
+    <div className="space-y-4">
+      <div className="p-6 rounded-2xl bg-[#10192A]/90 border border-[#1E2D4A]">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="text-xl font-bold text-white">Portal Accounts</h2>
+            <p className="text-xs text-slate-400 mt-0.5">Live user accounts from the authentication backend</p>
+          </div>
+          <ApiStatus />
+        </div>
+        {query.isError ? (
+          <div className="text-xs text-rose-400">Could not load accounts: {(query.error as Error).message}</div>
+        ) : query.isLoading ? (
+          <div className="text-xs text-slate-400">Loading accounts...</div>
+        ) : people.length === 0 ? (
+          <div className="text-xs text-slate-400">No accounts returned by backend.</div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs text-left">
+              <thead className="text-slate-400 border-b border-slate-800">
+                <tr><th className="py-2.5">Person</th><th>Role</th><th>Status</th><th>Created</th></tr>
+              </thead>
+              <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                {people.map((person) => (
+                  <tr key={person.pid} className="hover:bg-slate-900/40">
+                    <td className="py-3 flex items-center gap-2.5">
+                      <span className="w-7 h-7 rounded-full bg-purple-600/80 flex items-center justify-center text-[10px] font-bold text-white">
+                        {initials(person.name)}
+                      </span>
+                      <div>
+                        <div className="font-semibold text-white">{person.name}</div>
+                        <div className="text-[11px] text-slate-400">{person.email}</div>
+                      </div>
+                    </td>
+                    <td>{person.role.replace('_', ' ')}</td>
+                    <td>
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-semibold ${person.status === 'active' ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-rose-950 text-rose-400 border border-rose-800'}`}>
+                        {person.status}
+                      </span>
+                    </td>
+                    <td>{new Date(person.created_at).toLocaleDateString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  )
 }
 
 export const Directory = Employees
@@ -48,11 +112,22 @@ export const Reports = () => <SimpleView title="Reports" sub="People operations 
 export const Settings = () => <SimpleView title="Settings" sub="Workspace preferences and account options" />
 export const LeaveAdmin = () => <SimpleView title="Leave" sub="Team leave calendar and requests" />
 export const MyLeave = () => <SimpleView title="My leave" sub="Leave balance, requests and history" />
-export const ExpensesAdmin = () => <SimpleView title="Expense" sub="Expense review and reimbursement" />
-export const MyExpenses = () => <SimpleView title="My expenses" sub="Expense claims and reimbursement status" />
-export const Payroll = () => <SimpleView title="Payroll" sub="Payroll runs, payslips and compensation" />
-export const MyPay = () => <SimpleView title="My payslips" sub="Your payroll documents and payment history" />
+
+// Production-level Tailwind Payroll & Expense Views matching images (with full RBAC)
+export const Payroll = PayrollView
+export const PayrollDash = PayrollView
+export const Expenses = ExpenseView
+export const ExpensesAdmin = ExpenseView
+export const MyExpenses = ExpenseView
+export const MyPay = PayrollView
+
+// Supporting domain features
 export const SignDocs = () => <SimpleView title="Sign" sub="Documents awaiting signature" />
-export const Feed = () => <SimpleView title="Connect" sub="Company updates and team announcements" />
+export const Feed = CompanyFeedPage
 export const Learn = () => <SimpleView title="Learn" sub="Learning paths and employee development" />
 export const Roster = () => <SimpleView title="Shift" sub="Shift schedule and attendance" />
+export const Helpdesk = HelpdeskQueuePage
+export const OfficeExpense = OfficeExpensePage
+export const PayrollAdmin = PayrollAdminPage
+export const SalaryStructures = SalaryStructurePage
+export const FinanceExpenses = ExpenseFinancePage

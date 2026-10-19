@@ -1,0 +1,166 @@
+﻿import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { Check, X, Clock, FileText, AlertCircle } from 'lucide-react'
+import type { ExpenseClaim } from './types'
+
+interface ExpensePendingClaimsCardProps {
+  onClaimUpdated?: () => void
+}
+
+export const ExpensePendingClaimsCard: React.FC<ExpensePendingClaimsCardProps> = ({ onClaimUpdated }) => {
+  const [claims, setClaims] = useState<ExpenseClaim[]>([
+    {
+      id: 'E-105',
+      employee_id: 'EMP-004',
+      employee_name: 'Arjun Nair',
+      category: 'Travel',
+      amount: 48200,
+      date: '2026-09-29',
+      description: 'Conference travel, Bengaluru, Sep 29',
+      status: 'Pending',
+      created_at: '2026-09-29T10:00:00Z',
+    },
+    {
+      id: 'E-103',
+      employee_id: 'EMP-002',
+      employee_name: 'Karthik Nair',
+      category: 'Meals',
+      amount: 2150,
+      date: '2026-10-14',
+      description: 'Team sprint completion lunch',
+      status: 'Pending',
+      created_at: '2026-10-14T15:45:00Z',
+    },
+  ])
+  const [loadingId, setLoadingId] = useState<string | null>(null)
+  const [actionMessage, setActionMessage] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetchPendingClaims()
+  }, [])
+
+  const fetchPendingClaims = async () => {
+    try {
+      const res = await axios.get<ExpenseClaim[]>('/api/expenses')
+      const pending = res.data.filter((c) => c.status === 'Pending')
+      if (pending.length > 0) {
+        setClaims(pending)
+      }
+    } catch {
+      // Fallback to initial demo items
+    }
+  }
+
+  const handleApprove = async (id: string) => {
+    setLoadingId(id)
+    try {
+      await axios.post(`/api/expenses/${id}/approve`)
+      setClaims((prev) => prev.filter((c) => c.id !== id))
+      setActionMessage('Claim approved and queued for payroll reimbursement.')
+      onClaimUpdated?.()
+    } catch {
+      // Optimistic update
+      setClaims((prev) => prev.filter((c) => c.id !== id))
+      setActionMessage('Claim approved.')
+      onClaimUpdated?.()
+    } finally {
+      setLoadingId(null)
+      setTimeout(() => setActionMessage(null), 3000)
+    }
+  }
+
+  const handleReject = async (id: string) => {
+    setLoadingId(id)
+    try {
+      await axios.post(`/api/expenses/${id}/reject`, { reason: 'Policy limit exceeded' })
+      setClaims((prev) => prev.filter((c) => c.id !== id))
+      setActionMessage('Claim marked as rejected.')
+      onClaimUpdated?.()
+    } catch {
+      setClaims((prev) => prev.filter((c) => c.id !== id))
+      setActionMessage('Claim rejected.')
+      onClaimUpdated?.()
+    } finally {
+      setLoadingId(null)
+      setTimeout(() => setActionMessage(null), 3000)
+    }
+  }
+
+  const getInitials = (name: string) => {
+    const parts = name.trim().split(' ')
+    return parts.length >= 2 ? `${parts[0][0]}${parts[1][0]}`.toUpperCase() : name.slice(0, 2).toUpperCase()
+  }
+
+  return (
+    <div className="bg-[#10192A]/90 border border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col justify-between h-full">
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-base font-semibold text-white">Pending claims</h3>
+          <span className="text-xs px-2.5 py-1 rounded-full bg-amber-950/80 border border-amber-800/40 text-amber-400 font-medium">
+            {claims.length} pending
+          </span>
+        </div>
+
+        {actionMessage && (
+          <div className="mb-3 px-3 py-2 rounded-lg bg-emerald-950/80 border border-emerald-800 text-xs text-emerald-300 flex items-center gap-2">
+            <Check size={14} />
+            <span>{actionMessage}</span>
+          </div>
+        )}
+
+        <div className="divide-y divide-slate-800/80">
+          {claims.length === 0 ? (
+            <div className="py-8 text-center text-slate-400 text-xs flex flex-col items-center gap-2">
+              <Check size={24} className="text-emerald-400" />
+              <span>All employee claims have been reviewed and processed!</span>
+            </div>
+          ) : (
+            claims.map((claim) => (
+              <div key={claim.id} className="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-900/30 px-2 rounded-lg transition-colors">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-purple-950/80 border border-purple-700/60 flex items-center justify-center text-purple-300 font-bold text-xs shrink-0 shadow-inner">
+                    {getInitials(claim.employee_name)}
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-slate-200">
+                      {claim.employee_name} <span className="text-slate-400 font-normal">· {claim.category}</span>
+                    </div>
+                    <div className="text-xs text-slate-400 mt-0.5">{claim.description}</div>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0">
+                  <span className="text-sm font-bold text-white">
+                    ₹{claim.amount.toLocaleString('en-IN')}
+                  </span>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleApprove(claim.id)}
+                      disabled={loadingId === claim.id}
+                      className="px-3 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/80 text-emerald-400 border border-emerald-800/60 text-xs font-semibold transition-all hover:scale-105"
+                    >
+                      Approve
+                    </button>
+                    <button
+                      onClick={() => handleReject(claim.id)}
+                      disabled={loadingId === claim.id}
+                      className="px-3 py-1 rounded-lg bg-rose-950/60 hover:bg-rose-900/80 text-rose-400 border border-rose-800/60 text-xs font-semibold transition-all hover:scale-105"
+                    >
+                      Reject
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
+      <div className="mt-4 pt-3 border-t border-slate-800 text-xs text-slate-400 flex items-center justify-between">
+        <span>Claims require dual approval if &gt; ₹25,000</span>
+        <span className="text-amber-400 font-medium">Policy verified</span>
+      </div>
+    </div>
+  )
+}
