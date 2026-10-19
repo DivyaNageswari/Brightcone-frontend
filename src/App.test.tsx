@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import { clearAccessToken } from './api/client'
 import { AuthProvider } from './auth/AuthContext'
-import { employee, jsonResponse, mockApi, sessionFor } from './test/fakeApi'
+import { employee, jsonResponse, mockApi, sessionFor } from './test/fake-api'
 
 function renderAt(path: string) {
   return render(
@@ -121,7 +121,9 @@ describe('signing in and out', () => {
     await userEvent.type(screen.getByLabelText('Password'), 'correct horse battery staple')
     await userEvent.click(screen.getByRole('button', { name: 'Sign in' }))
 
-    expect(await screen.findByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ })).toBeInTheDocument()
+    expect(
+      await screen.findByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ }),
+    ).toBeInTheDocument()
 
     await userEvent.click(screen.getAllByRole('button', { name: 'Sign out' })[0])
     expect(await screen.findByRole('heading', { name: 'Sign in' })).toBeInTheDocument()
@@ -132,7 +134,9 @@ describe('signing in and out', () => {
   it('restores the session after a page reload', async () => {
     mockApi({ 'POST /auth/refresh': () => jsonResponse(sessionFor(employee)) })
     renderAt('/')
-    expect(await screen.findByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ })).toBeInTheDocument()
+    expect(
+      await screen.findByRole('heading', { name: /Good (morning|afternoon|evening), Rahul/ }),
+    ).toBeInTheDocument()
   })
 
   it('forces a password change when HR set a temporary password', async () => {

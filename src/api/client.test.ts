@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { employee, jsonResponse, mockApi, sessionFor } from '@/test/fakeApi'
+import { employee, jsonResponse, mockApi, sessionFor } from '@/test/fake-api'
 import {
   api,
   ApiError,

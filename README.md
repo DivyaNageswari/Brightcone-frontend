@@ -1,49 +1,69 @@
 # Brightcone People Plus — Frontend
 
-React 19, TypeScript, and Vite client for Brightcone HR. The interface follows the supplied Brightcone People Plus design. A visual suite module is not necessarily backed by a live API: unsupported business areas must remain marked “Coming soon” rather than showing fabricated records.
+React 19, TypeScript and Vite client for Brightcone HR. The interface follows the supplied Brightcone People Plus design. A suite module is not necessarily backed by a live API: areas without a backend stay marked "Coming soon" and never show invented records.
 
 ## Current scope
 
-- Sign in, password recovery/reset, session refresh/logout, protected app shell, theme, and reusable UI components.
-- People Plus navigation and dashboard shell, audit screen, and UI kit.
-- Live API calls are centralized in `src/api` and use the backend API. Access tokens remain in memory; refresh uses an HttpOnly cookie.
-- Payroll, leave, expenses, recruitment, documents/approvals, learning, shift, and other HR data features are not complete end-to-end. Check the backend API contract before adding a UI flow.
+- Sign in, password recovery and reset, silent session refresh, sign out, protected routes, theme, and a shared UI kit.
+- Suite dashboard and navigation, live portal accounts (HR Admin), live audit log, and a dev-only UI-kit page.
+- Every other module is a data-driven "Coming soon" page that names the phase and ticket that delivers its backend (see [docs/api-migration.md](docs/api-migration.md)).
+- Access tokens live in memory only. The refresh token is an HttpOnly cookie that scripts cannot read.
 
 ## Run locally
 
-Requirements: Node.js/npm and the [Brightcone HR API](../brightcone-hr-backend) running on port 5150.
+Requirements: Node.js 20+ and the [Brightcone HR API](../brightcone-hr-backend) on port 5150.
 
-```powershell
-npm ci
-Copy-Item .env.example .env.development
+```bash
+npm ci --legacy-peer-deps
+cp .env.example .env.development
 npm run dev
 ```
 
-Vite serves the app at `http://localhost:5173`, proxies `/api` to `http://localhost:5150`, and uses `/api` as the browser API base. Adjust `VITE_PROXY_TARGET` only when the backend runs elsewhere. Never put secrets in `VITE_*` variables; they are bundled into browser code.
+Vite serves `http://localhost:5173` and proxies `/api` to the backend. All settings are read in one place, `src/config/env.ts`, and validated when the app starts; see `.env.example`. Never put secrets in `VITE_*` variables: they are bundled into browser code.
 
-## Verification
+## Scripts
 
-```powershell
-npm run lint
-npm test
-npm run build
-npm run test:e2e
-```
+| Command                                 | What it does                                                        |
+| --------------------------------------- | ------------------------------------------------------------------- |
+| `npm run dev` / `build` / `preview`     | Dev server, production build, preview of the build                  |
+| `npm run lint` / `format` / `typecheck` | oxlint, Prettier, TypeScript                                        |
+| `npm test` / `test:e2e`                 | Vitest unit and component tests, Playwright browser tests           |
+| `npm run gen:api`                       | Regenerate API types from `openapi.json` (copy it from the backend) |
+| `npm run check`                         | All four structure checks below                                     |
+| `check:lines`                           | No source file over 400 lines                                       |
+| `check:names`                           | File and folder naming conventions                                  |
+| `check:css`                             | No CSS class that nothing uses                                      |
+| `check:dead`                            | [knip](https://knip.dev): unused files, exports and dependencies    |
 
-Current local verification: lint passed, unit tests passed (2 files, 16 tests), production build passed. Playwright E2E did not complete in the audit environment. It stubs the API and does not prove backend integration.
+CI runs lint, `npm run check`, format check, type check, tests, build and the dependency audit on every pull request.
 
 ## Structure
 
 ```text
-src/app entry and router
-src/api API client and generated contract types
-src/auth auth state and route guards
-src/components shared UI and application shell
-src/features domain feature modules
-src/people-plus suite-specific layout/navigation
-src/routes route-level pages
-src/styles design tokens and global styles
-e2e browser tests
+src/
+  main.tsx, App.tsx     providers and the app below them
+  config/               env.ts: the only reader of import.meta.env
+  api/                  fetch client, typed endpoint helpers, generated contract types
+  auth/                 session state and route guards
+  domain/               pure business logic, no React (money, dates, permissions, status, ...)
+  features/<module>/    one folder per product area: pages, hooks, api calls, feature CSS
+  components/           shared UI kit (components/ui/) and layout parts
+  people-plus/          suite shell: sidebar, top bar, app launcher, navigation config
+  routes/               route-table.tsx (every URL in one table) and the 404 page
+  lib/                  small cross-cutting helpers (error reporting)
+  styles/               design tokens and global styles
+  test/                 test setup and the fake API
+scripts/                CI checks and the API type splitter
+e2e/                    Playwright tests
+docs/                   architecture, API migration plan
 ```
 
-See `STATUS.md` for branch tasks and the backend repository’s `PROJECT_ASSESSMENT.md` for API, schema, security and release readiness.
+Rule of thumb: rules live in `domain/`, server calls in `features/*/api.ts` or `api/`, and components only render. See [docs/architecture.md](docs/architecture.md).
+
+## Adding a module
+
+1. Create `src/features/<module>/` with the page, an `api.ts` (typed from `openapi.json`) and tests.
+2. Point its route in `src/routes/route-table.tsx` at the page and remove its line from `features/modules/modules.ts`.
+3. Update the status in [docs/api-migration.md](docs/api-migration.md).
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for naming, branches and review rules, and `STATUS.md` for the current branch status.

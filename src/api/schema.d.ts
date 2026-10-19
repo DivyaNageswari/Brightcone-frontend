@@ -3,250 +3,13 @@
  * Do not make direct changes to the file.
  */
 
-export interface paths {
-    "/api/admin/users": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Lists accounts, 25 per page by default. */
-        get: operations["list"];
-        put?: never;
-        /** Creates an account with a temporary password the person must change at first sign-in. */
-        post: operations["create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/users/{pid}/disable": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Disables an account and signs it out everywhere. */
-        post: operations["disable"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/users/{pid}/reset-password": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Sets a new temporary password (shown once) and signs the person out everywhere. */
-        post: operations["reset_password"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/users/{pid}/role": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /** Changes an account's role. */
-        put: operations["set_role"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/admin/users/{pid}/unlock": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Unlocks a locked account, or re-enables a disabled one. */
-        post: operations["unlock"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/audit": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Who did what and when, newest first. */
-        get: operations["list"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/auth/forgot": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Asks for a reset link. The answer is always the same, so nobody can discover which e-mails exist. */
-        post: operations["forgot"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/auth/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Signs a user in with e-mail and password. */
-        post: operations["login"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/auth/logout": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Ends the session. Always answers 204, even if the cookie was already invalid. */
-        post: operations["logout"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/auth/refresh": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Swaps the refresh cookie for a new one and returns a fresh access token. */
-        post: operations["refresh"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/auth/reset": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Sets a new password using the link from the e-mail. */
-        post: operations["reset"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/health": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Liveness plus a database check. Used by monitoring and the frontend start page.
-         *     Returns 503 when the database does not answer so load balancers stop sending traffic.
-         */
-        get: operations["health"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/me": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Who am I and what may I do? Called by the frontend after sign-in and after a page reload. */
-        get: operations["current"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/me/password": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        /** Changes the password and signs out every other device. Returns a fresh session for this one. */
-        put: operations["change_password"];
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-}
+import type { OperationGroup1 } from './schema/operations-1'
+import type { OperationGroup2 } from './schema/operations-2'
+import type { OperationGroup3 } from './schema/operations-3'
+import type { PathGroup1 } from './schema/paths-1'
+import type { PathGroup2 } from './schema/paths-2'
+
+export interface paths extends PathGroup1, PathGroup2 {}
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
@@ -281,6 +44,40 @@ export interface components {
              */
             next_before_id?: number | null;
         };
+        BackupDocument: {
+            /** Format: int32 */
+            format_version: number;
+            history: components["schemas"]["BackupHistory"][];
+            records: components["schemas"]["BackupRecord"][];
+        };
+        BackupHistory: {
+            action: string;
+            after_data?: unknown;
+            before_data?: unknown;
+            created_at: string;
+            /** Format: uuid */
+            record_id: string;
+            /** Format: int64 */
+            source_actor_user_id: number;
+        };
+        BackupImport: {
+            /** Format: int32 */
+            format_version: number;
+            history?: components["schemas"]["BackupHistory"][];
+            records: components["schemas"]["BackupRecord"][];
+        };
+        BackupRecord: {
+            archived_at?: string | null;
+            /** Format: int64 */
+            created_by: number;
+            data: unknown;
+            /** Format: uuid */
+            id: string;
+            record_type: string;
+            source_id: string;
+            /** Format: int64 */
+            updated_by: number;
+        };
         ChangePasswordParams: {
             current_password: string;
             new_password: string;
@@ -291,6 +88,15 @@ export interface components {
             /** @example employee */
             role: string;
         };
+        FieldSchema: {
+            allowed_values: string[];
+            computed?: string | null;
+            key: string;
+            kind: string;
+            max_length: number;
+            required: boolean;
+            unique: boolean;
+        };
         ForgotParams: {
             email: string;
         };
@@ -300,6 +106,18 @@ export interface components {
             database: string;
             /** @example ok */
             status: string;
+        };
+        HistoryEntry: {
+            action: string;
+            /** Format: int64 */
+            actor_user_id: number;
+            after_data?: unknown;
+            before_data?: unknown;
+            created_at: string;
+            /** Format: int64 */
+            id: number;
+            /** Format: uuid */
+            record_id: string;
         };
         LoginParams: {
             /** @example ananya.rao@brightcone.ai */
@@ -322,9 +140,67 @@ export interface components {
         MessageResponse: {
             message: string;
         };
+        Notification: {
+            body: string;
+            created_at: string;
+            /** Format: uuid */
+            id: string;
+            read_at?: string | null;
+            rule_key: string;
+            title: string;
+        };
+        NotificationPage: {
+            items: components["schemas"]["Notification"][];
+            /** Format: int64 */
+            unread_count: number;
+        };
+        Record: {
+            archived_at?: string | null;
+            created_at: string;
+            data: unknown;
+            /** Format: uuid */
+            id: string;
+            record_type: string;
+            source_id: string;
+            updated_at: string;
+        };
+        RecordCatalog: {
+            record_types: components["schemas"]["RecordTypeSchema"][];
+            /** Format: int32 */
+            version: number;
+        };
+        RecordInput: {
+            data: unknown;
+            source_id: string;
+        };
+        RecordPage: {
+            items: components["schemas"]["Record"][];
+        };
+        RecordTypeSchema: {
+            fields: components["schemas"]["FieldSchema"][];
+            key: string;
+        };
+        RecordUpdateInput: {
+            data: unknown;
+        };
         ResetParams: {
             password: string;
             token: string;
+        };
+        Rule: {
+            enabled: boolean;
+            rule_key: string;
+        };
+        RuleMetrics: {
+            /** Format: int64 */
+            complete: number;
+            /** Format: int64 */
+            failed: number;
+            /** Format: int64 */
+            pending: number;
+        };
+        RuleUpdate: {
+            enabled: boolean;
         };
         /**
          * @description Returned by login, refresh and change-password. The refresh token travels separately, in an
@@ -358,428 +234,4 @@ export interface components {
     pathItems: never;
 }
 export type $defs = Record<string, never>;
-export interface operations {
-    list: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description A page of accounts */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description HR Admin only */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateUserParams"];
-            };
-        };
-        responses: {
-            /** @description Account created */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TemporaryPasswordResponse"];
-                };
-            };
-            /** @description E-mail already used */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    disable: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Account id */
-                pid: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Account disabled */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    reset_password: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Account id */
-                pid: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Temporary password, shown once */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TemporaryPasswordResponse"];
-                };
-            };
-        };
-    };
-    set_role: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Account id */
-                pid: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["SetRoleParams"];
-            };
-        };
-        responses: {
-            /** @description Role changed */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    unlock: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description Account id */
-                pid: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Account is active again */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    list: {
-        parameters: {
-            query?: {
-                /** @description Page cursor */
-                before_id?: number;
-                /** @description 1 to 200, default 50 */
-                limit?: number;
-                /** @description Filter, e.g. auth. */
-                action_prefix?: string;
-                /** @description Filter by who did it */
-                actor_user_id?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["AuditPage"];
-                };
-            };
-            /** @description HR Admin only */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    forgot: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ForgotParams"];
-            };
-        };
-        responses: {
-            /** @description Always succeeds */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MessageResponse"];
-                };
-            };
-        };
-    };
-    login: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["LoginParams"];
-            };
-        };
-        responses: {
-            /** @description Signed in. The refresh token is set as an HttpOnly cookie. */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SessionResponse"];
-                };
-            };
-            /** @description E-mail or password is incorrect */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Account locked or disabled (code account_locked / account_disabled) */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Too many attempts */
-            429: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    logout: {
-        parameters: {
-            query?: {
-                /** @description Sign out on every device */
-                all?: boolean;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Signed out; the refresh cookie is deleted */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    refresh: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description New access token; the refresh cookie is replaced */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SessionResponse"];
-                };
-            };
-            /** @description No valid refresh cookie */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    reset: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ResetParams"];
-            };
-        };
-        responses: {
-            /** @description Password changed; all sessions were signed out */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MessageResponse"];
-                };
-            };
-            /** @description Link invalid or expired, or password too weak */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    health: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Server and database are up */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HealthResponse"];
-                };
-            };
-            /** @description Database is not answering */
-            503: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HealthResponse"];
-                };
-            };
-        };
-    };
-    current: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description The signed-in user */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MeResponse"];
-                };
-            };
-            /** @description Not signed in */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    change_password: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ChangePasswordParams"];
-            };
-        };
-        responses: {
-            /** @description Password changed */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SessionResponse"];
-                };
-            };
-            /** @description Current password wrong, or new password too weak */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Not signed in */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-}
+export interface operations extends OperationGroup1, OperationGroup2, OperationGroup3 {}
