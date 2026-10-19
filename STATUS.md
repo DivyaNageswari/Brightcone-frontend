@@ -25,7 +25,3 @@ Live employee-directory, leave, payroll, expenses, recruitment, files/approvals,
 - `npm test`: passed, 16 files and 69 tests.
 - `npm run build`: see CI; the build also runs the line-limit check.
 - `npm run test:e2e`: not confirmed locally; it stubs the API, so it does not prove backend integration.
-
-## AI/editor files
-
-No tracked `.claude`, `.codex`, `.cursor`, or agent-instruction files are part of the frontend product source. Keep personal editor settings and local generated files out of commits.
