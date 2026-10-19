@@ -41,12 +41,6 @@
 .drawer-panel {
   @apply [position:fixed] [top:0] [bottom:0] [background:var(--surface)] [border-left:1px_solid_var(--border)] [box-shadow:-4px_0_24px_rgb(0_0_0_/_18%)] [display:flex] [flex-direction:column] [z-index:101] [max-width:90vw] [transition:transform_0.25s_cubic-bezier(0.16,_1,_0.3,_1)];
 }
-.drawer-right {
-  @apply [right:0] animate-drawer-right;
-}
-.drawer-left {
-  @apply [left:0] [border-left:none] [border-right:1px_solid_var(--border)] [box-shadow:4px_0_24px_rgb(0_0_0_/_18%)] animate-drawer-left;
-}
 .drawer-header {
   @apply [display:flex] [align-items:center] [justify-content:space-between] [padding:16px_20px] [border-bottom:1px_solid_var(--border)];
 }

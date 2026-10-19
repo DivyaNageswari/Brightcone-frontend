@@ -4,12 +4,13 @@
 // - The access token lives in memory only: never localStorage, sessionStorage or a URL.
 // - The refresh token is an HttpOnly cookie that scripts cannot read; the browser sends it.
 // - A 401 triggers exactly one silent refresh (shared by all callers) and one retry.
+import { env } from '@/config/env'
 import type { components } from './schema'
 
 export type Session = components['schemas']['SessionResponse']
 export type Me = components['schemas']['MeResponse']
 
-const BASE = import.meta.env.VITE_API_URL ?? '/api'
+const BASE = env.apiUrl
 const CSRF = { 'X-Requested-With': 'brightcone' }
 
 export class ApiError extends Error {

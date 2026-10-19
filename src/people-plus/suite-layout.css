@@ -269,21 +269,6 @@
 .pp-coming-state p {
   @apply [margin:4px_0_0] [color:var(--pp-muted)] [font-size:9px];
 }
-.pp-suite-account {
-  @apply [display:flex] [align-items:center] [gap:10px] [margin-top:18px] [padding:12px_2px] [border-top:1px_solid_var(--pp-line)];
-}
-.pp-suite-account > span:nth-child(2) {
-  @apply [flex:1];
-}
-.pp-suite-account strong {
-  @apply [display:block] [font-size:10px];
-}
-.pp-suite-account small {
-  @apply [display:block] [margin-top:3px] [color:var(--pp-muted)] [font-size:9px];
-}
-.pp-suite-account > a {
-  @apply [display:flex] [align-items:center] [gap:4px] [color:var(--pp-brand)] [text-decoration:none] [font-size:9px];
-}
 .pp-modal-backdrop {
   @apply [position:fixed] [z-index:60] [inset:0] [display:grid] [place-items:start_center] [padding:10vh_18px_20px] [background:#06101f88] [backdrop-filter:blur(3px)];
 }

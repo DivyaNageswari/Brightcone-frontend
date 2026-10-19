@@ -20,7 +20,7 @@ import {
   TextField,
   type Column,
 } from '@/components/ui'
-import { useToast } from '@/components/ToastContext'
+import { useToast } from '@/components/toast-context'
 
 const demoSchema = z.object({
   fullName: z.string().trim().min(2, 'Name must be at least 2 characters.'),

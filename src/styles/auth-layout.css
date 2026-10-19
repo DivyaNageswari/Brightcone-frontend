@@ -1,33 +1,4 @@
 /* ---------- sign-in layout ---------- */
-.auth-page {
-  @apply [min-height:100vh] [display:grid] [grid-template-columns:1.1fr_1fr];
-}
-.auth-hero {
-  @apply [background:linear-gradient(160deg,_#0b1b3a,_#1b3f9e)] [color:#fff] [padding:48px] [display:flex] [flex-direction:column] [justify-content:center] [gap:12px];
-}
-.auth-hero h2 {
-  @apply [font-size:34px];
-}
-.auth-hero p {
-  @apply [color:#c9d4ee] [max-width:38ch];
-}
-.auth-form {
-  @apply [display:grid] [place-items:center] [padding:24px] [position:relative];
-}
-.auth-form .card {
-  @apply [width:min(420px,_100%)];
-}
-.auth-form .corner {
-  @apply [position:absolute] [top:16px] [right:16px];
-}
 .row {
   @apply [display:flex] [justify-content:space-between] [align-items:center] [gap:12px] [margin-bottom:16px] [font-size:14px];
-}
-@media (max-width: 860px) {
-  .auth-page {
-    @apply [grid-template-columns:1fr];
-  }
-  .auth-hero {
-    @apply [display:none];
-  }
 }

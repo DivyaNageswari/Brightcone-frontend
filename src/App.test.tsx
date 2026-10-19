@@ -6,7 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import { clearAccessToken } from './api/client'
 import { AuthProvider } from './auth/AuthContext'
-import { employee, jsonResponse, mockApi, sessionFor } from './test/fakeApi'
+import { employee, jsonResponse, mockApi, sessionFor } from './test/fake-api'
 
 function renderAt(path: string) {
   return render(

@@ -1,8 +1,9 @@
+import { env } from '@/config/env'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '@/auth/AuthContext'
 import { APPS, NAV_BY_ROLE, type AppKey } from '../data'
 import { Icon } from '../Icon'
-import { initials } from '../data'
+import { initials } from '@/domain/people'
 
 export function SuiteSidebar({ appKey, close }: { appKey: AppKey; close?: () => void }) {
   const { user, can, signOut } = useAuth()
@@ -21,7 +22,7 @@ export function SuiteSidebar({ appKey, close }: { appKey: AppKey; close?: () => 
         </span>
         <span>
           <strong>{app.name}</strong>
-          <small>Brightcone People Plus</small>
+          <small>{env.appName}</small>
         </span>
         <button
           type="button"

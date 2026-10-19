@@ -8,6 +8,7 @@ import {
   type SelectHTMLAttributes,
   type TextareaHTMLAttributes,
 } from 'react'
+import { initials } from '@/domain/people'
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'primary' | 'danger' | 'ghost' | 'link'
@@ -155,15 +156,9 @@ export function Pill({
 }
 
 export function Avatar({ name }: { name: string }) {
-  const initials = name
-    .split(' ')
-    .map((p) => p[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase()
   return (
     <span className="avatar" aria-hidden="true">
-      {initials}
+      {initials(name)}
     </span>
   )
 }

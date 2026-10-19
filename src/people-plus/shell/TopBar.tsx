@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLocation } from 'react-router-dom'
 import { useAuth } from '@/auth/AuthContext'
+import { listNotifications, markNotificationRead } from '@/api/notifications'
 import { APPS, getAppForPath } from '../data'
 import { Icon } from '../Icon'
 import { AppLauncher } from './AppLauncher'
@@ -21,6 +23,16 @@ export function TopBar({
   const [launcher, setLauncher] = useState(false)
   const [command, setCommand] = useState(false)
   const [notice, setNotice] = useState(false)
+  const queryClient = useQueryClient()
+  const notifications = useQuery({
+    queryKey: ['notifications'],
+    queryFn: listNotifications,
+    refetchInterval: 60_000,
+  })
+  const markRead = async (id: string) => {
+    await markNotificationRead(id)
+    await queryClient.invalidateQueries({ queryKey: ['notifications'] })
+  }
   useEffect(() => {
     const onShortcut = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
@@ -73,15 +85,36 @@ export function TopBar({
             <button
               type="button"
               className="pp-icon-button"
-              aria-label="Notifications"
+              aria-label={`Notifications${notifications.data?.unread_count ? `, ${notifications.data.unread_count} unread` : ''}`}
+              aria-expanded={notice}
               onClick={() => setNotice((value) => !value)}
             >
               <Icon name="bell" />
+              {!!notifications.data?.unread_count && (
+                <span className="pp-notice-count">
+                  {notifications.data.unread_count > 99 ? '99+' : notifications.data.unread_count}
+                </span>
+              )}
             </button>
             {notice && (
               <div className="pp-notice-popover">
-                <strong>Coming soon</strong>
-                <p>Notifications are not available in the connected backend.</p>
+                <strong>Notifications</strong>
+                {notifications.isPending && <p>Loading notifications…</p>}
+                {notifications.isError && <p>Could not load notifications. Try again.</p>}
+                {notifications.data?.items.length === 0 && <p>You’re all caught up.</p>}
+                {notifications.data?.items.map((item) => (
+                  <button
+                    className={`pp-notice-item${item.read_at ? '' : ' is-unread'}`}
+                    key={item.id}
+                    type="button"
+                    onClick={() => {
+                      if (!item.read_at) void markRead(item.id).catch(() => undefined)
+                    }}
+                  >
+                    <span>{item.title}</span>
+                    <small>{item.body}</small>
+                  </button>
+                ))}
               </div>
             )}
           </div>

@@ -7,7 +7,7 @@ import { changePassword } from '@/api/auth'
 import { ApiError } from '@/api/client'
 import { useAuth } from '@/auth/AuthContext'
 import { Alert, Button, Card, PasswordField } from '@/components/ui'
-import { passwordRules } from './passwordRules'
+import { passwordRules } from '@/domain/password'
 
 const schema = z
   .object({

@@ -7,7 +7,7 @@ import { resetPassword } from '@/api/auth'
 import { ApiError } from '@/api/client'
 import { AuthLayout } from '@/components/AuthLayout'
 import { Alert, Button, PasswordField } from '@/components/ui'
-import { passwordRules } from './passwordRules'
+import { passwordRules } from '@/domain/password'
 
 const schema = z
   .object({ password: passwordRules, confirm: z.string() })

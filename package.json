@@ -15,7 +15,11 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "gen:api": "openapi-typescript ./openapi.json -o src/api/schema.d.ts && node scripts/split-openapi-types.mjs",
-    "check:lines": "node scripts/check-line-limits.mjs"
+    "check:lines": "node scripts/check-line-limits.mjs",
+    "check:names": "node scripts/check-names.mjs",
+    "check:css": "node scripts/check-css.mjs",
+    "check:dead": "knip",
+    "check": "npm run check:lines && npm run check:names && npm run check:css && npm run check:dead"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
@@ -38,6 +42,7 @@
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
     "jsdom": "^29.1.1",
+    "knip": "^6.42.0",
     "openapi-typescript": "^7.13.0",
     "oxlint": "^1.81.0",
     "prettier": "^3.9.10",

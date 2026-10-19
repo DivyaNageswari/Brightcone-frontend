@@ -197,11 +197,3 @@ export function getAppForPath(path: string): AppDefinition {
     return APPS.find((app) => app.key === 'plus')!
   return APPS.find((app) => app.key === 'plus')!
 }
-
-export const initials = (name: string) =>
-  name
-    .split(/\s+/)
-    .map((part) => part[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase()

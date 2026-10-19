@@ -1,3 +1,4 @@
+import { env } from '@/config/env'
 import { useState, type ReactNode } from 'react'
 import { currentTheme, toggleTheme } from '@/theme'
 import { APPS } from '@/people-plus/data'
@@ -17,7 +18,7 @@ export function AuthLayout({
   const [theme, setTheme] = useState(currentTheme())
   return (
     <div className="auth-reference">
-      <section className="auth-reference-hero" aria-label="Brightcone People Plus">
+      <section className="auth-reference-hero" aria-label={env.appName}>
         <div className="auth-reference-glow" />
         <img
           className="auth-reference-wordmark"
@@ -31,7 +32,7 @@ export function AuthLayout({
           <br />
           place.
         </h2>
-        <p className="auth-reference-product">Brightcone People Plus</p>
+        <p className="auth-reference-product">{env.appName}</p>
         <p className="auth-reference-copy">
           Employees apply for leave, download payslips and raise requests. HR runs payroll,
           approvals and hiring from one inbox.

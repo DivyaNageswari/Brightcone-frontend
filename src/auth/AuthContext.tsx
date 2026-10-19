@@ -8,7 +8,8 @@ import {
   type ReactNode,
 } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
-import * as authApi from '@/api/auth'
+import { login, logout } from '@/api/auth'
+import { hasPermission } from '@/domain/permissions'
 import {
   adoptSession,
   clearAccessToken,
@@ -93,10 +94,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       status,
       user,
       notice,
-      can: (permission) =>
-        !!user?.permissions.some((p) => p === permission || p.startsWith(`${permission}:`)),
+      can: (permission) => !!user && hasPermission(user.permissions, permission),
       signIn: async (email, password, remember) => {
-        const session = await authApi.login(email, password, remember)
+        const session = await login(email, password, remember)
         adoptSession(session)
         setUser(session.user)
         setNotice(null)
@@ -105,7 +105,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       },
       signOut: async () => {
         try {
-          await authApi.logout()
+          await logout()
         } catch {
           /* the cookie is cleared locally either way */
         }

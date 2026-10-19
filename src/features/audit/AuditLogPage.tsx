@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { api } from '@/api/client'
-import { Card, DataTable, Pill, type Column } from '@/components/ui'
+import { Card, DataTable, StatusPill, type Column } from '@/components/ui'
+import { formatDateTime } from '@/domain/dates'
+import { auditActionTone } from '@/domain/status'
 
 interface AuditItem {
   id: number
@@ -18,14 +20,6 @@ interface AuditPageResponse {
   next_before_id?: number | null
 }
 
-const actionTone = (action: string): 'ok' | 'warn' | 'bad' | 'info' => {
-  if (action.includes('created') || action.includes('unlocked')) return 'ok'
-  if (action.includes('failed') || action.includes('locked') || action.includes('disabled'))
-    return 'bad'
-  if (action.includes('reset') || action.includes('role')) return 'warn'
-  return 'info'
-}
-
 export function AuditLogPage() {
   const { data, isLoading, error } = useQuery<AuditPageResponse>({
     queryKey: ['audit-logs'],
@@ -38,9 +32,7 @@ export function AuditLogPage() {
       header: 'Timestamp',
       sortable: true,
       render: (r) => (
-        <span style={{ whiteSpace: 'nowrap', fontSize: '0.8125rem' }}>
-          {new Date(r.at).toLocaleString()}
-        </span>
+        <span style={{ whiteSpace: 'nowrap', fontSize: '0.8125rem' }}>{formatDateTime(r.at)}</span>
       ),
     },
     {
@@ -53,7 +45,9 @@ export function AuditLogPage() {
       key: 'action',
       header: 'Action',
       sortable: true,
-      render: (r) => <Pill tone={actionTone(r.action)}>{r.action}</Pill>,
+      render: (r) => (
+        <StatusPill status={r.action} tone={auditActionTone(r.action)} label={r.action} />
+      ),
     },
     {
       key: 'target',
