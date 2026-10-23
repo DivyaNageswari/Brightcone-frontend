@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { Lock, Plus, Download } from "lucide-react";
@@ -8,6 +8,7 @@ import {
   type AttendanceSyncItem,
   type VarianceItem,
   type OneTimeInput,
+  type RegisterItem,
   paySteps,
 } from "./payroll-admin/types";
 import { RunPayrollTab } from "./payroll-admin/RunPayrollTab";
@@ -33,6 +34,7 @@ export const PayrollAdminPage: React.FC = () => {
   const [allRuns, setAllRuns] = useState<PayrollRun[]>([]);
   const [attendance, setAttendance] = useState<AttendanceSyncItem[]>([]);
   const [variances, setVariances] = useState<VarianceItem[]>([]);
+  const [registerList, setRegisterList] = useState<RegisterItem[]>([]);
 
   const [currentStep, setCurrentStep] = useState<number>(3);
   const [inputs, setInputs] = useState<OneTimeInput[]>([
@@ -56,11 +58,12 @@ export const PayrollAdminPage: React.FC = () => {
 
   const fetchInitialData = async () => {
     try {
-      const [runsRes, activeRes, attRes, varRes] = await Promise.all([
+      const [runsRes, activeRes, attRes, varRes, regRes] = await Promise.all([
         axios.get<PayrollRun[]>("/api/payroll/runs"),
         axios.get<PayrollRun>("/api/payroll/runs/active"),
         axios.get<AttendanceSyncItem[]>("/api/payroll/attendance-sync"),
         axios.get<VarianceItem[]>("/api/payroll/variances"),
+        axios.get<RegisterItem[]>("/api/payroll/register"),
       ]);
 
       setAllRuns(runsRes.data);
@@ -70,6 +73,7 @@ export const PayrollAdminPage: React.FC = () => {
       }
       setAttendance(attRes.data);
       setVariances(varRes.data);
+      if (regRes?.data) setRegisterList(regRes.data);
     } catch {
       // Local fallback
     }
@@ -288,6 +292,7 @@ export const PayrollAdminPage: React.FC = () => {
 
       {activeTab === "register" && (
         <RegisterTab
+            registerData={registerList}
           activeRun={activeRun}
           onDownloadSlip={(name) => {
             addNotification({

@@ -1,17 +1,19 @@
-﻿import React, { useState } from "react";
+import React, { useState } from "react";
 import { Search, Download } from "lucide-react";
-import { type PayrollRun, registerItems, formatINR } from "./types";
+import { type PayrollRun, type RegisterItem, registerItems, formatINR } from "./types";
 
 interface Props {
   activeRun: PayrollRun | null;
+  registerData?: RegisterItem[];
   onDownloadSlip: (name: string) => void;
   onExport: () => void;
 }
 
-export const RegisterTab: React.FC<Props> = ({ activeRun, onDownloadSlip, onExport }) => {
+export const RegisterTab: React.FC<Props> = ({ activeRun, registerData, onDownloadSlip, onExport }) => {
   const [regSearch, setRegSearch] = useState("");
 
-  const filteredRegister = registerItems.filter(
+  const list = registerData && registerData.length > 0 ? registerData : registerItems;
+  const filteredRegister = list.filter(
     (item) =>
       item.name.toLowerCase().includes(regSearch.toLowerCase()) ||
       item.dept.toLowerCase().includes(regSearch.toLowerCase()) ||

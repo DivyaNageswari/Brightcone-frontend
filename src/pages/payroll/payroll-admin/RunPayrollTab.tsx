@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { CheckCircle2, Lock, ArrowRight, ArrowLeft, Check } from "lucide-react";
 import {
   type PayrollRun,
@@ -60,7 +60,7 @@ export const RunPayrollTab: React.FC<Props> = ({
               {activeRun ? activeRun.month : "October 2026"} Run
             </h3>
             <span className="text-xs text-slate-500 font-sans">
-              Target Disbursal Date: 31st of the month • Schedule: Monthly Regular
+              Target Disbursal Date: 31st of the month � Schedule: Monthly Regular
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -167,28 +167,28 @@ export const RunPayrollTab: React.FC<Props> = ({
         <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
           <span className="text-xs text-slate-500">Eligible Employees</span>
           <div className="text-xl font-bold font-display text-slate-900 mt-1">
-            {activeRun?.total_employees || 38}
+            {activeRun?.total_employees || 14}
           </div>
           <span className="text-[11px] text-emerald-600 font-medium">100% attendance synced</span>
         </div>
         <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
           <span className="text-xs text-slate-500">Gross Payroll</span>
           <div className="text-xl font-bold font-display text-slate-900 mt-1">
-            {formatINR(activeRun?.total_gross || 3420000)}
+            {formatINR(activeRun?.total_gross || 0)}
           </div>
           <span className="text-[11px] text-slate-500">Includes bonuses & allowances</span>
         </div>
         <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
           <span className="text-xs text-slate-500">Total Deductions</span>
           <div className="text-xl font-bold font-display text-slate-900 mt-1">
-            {formatINR(activeRun?.total_deductions || 406000)}
+            {formatINR(activeRun?.total_deductions || 0)}
           </div>
           <span className="text-[11px] text-slate-500">PF, PT, TDS & shortfalls</span>
         </div>
         <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
           <span className="text-xs text-slate-500">Net Disbursement</span>
           <div className="text-xl font-bold font-display text-emerald-600 mt-1">
-            {formatINR(activeRun?.total_net || 3014000)}
+            {formatINR(activeRun?.total_net || 0)}
           </div>
           <span className="text-[11px] text-emerald-700 font-medium">To bank ledger</span>
         </div>

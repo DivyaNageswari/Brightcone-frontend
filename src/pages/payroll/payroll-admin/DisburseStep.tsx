@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import { ShieldCheck, Lock, CheckCircle2 } from "lucide-react";
 import { type PayrollRun, formatINR } from "./types";
 
@@ -33,15 +33,15 @@ export const DisburseStep: React.FC<Props> = ({ activeRun, onOpenPublishModal })
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
           <div className="p-3 bg-white rounded-lg border border-slate-200">
             <span className="text-slate-400">Headcount</span>
-            <div className="font-bold text-slate-900 text-sm mt-0.5">{activeRun?.total_employees || 38} Employees</div>
+            <div className="font-bold text-slate-900 text-sm mt-0.5">{activeRun?.total_employees || 14} Employees</div>
           </div>
           <div className="p-3 bg-white rounded-lg border border-slate-200">
             <span className="text-slate-400">Net Transfer Amount</span>
-            <div className="font-bold text-emerald-600 text-sm mt-0.5">{formatINR(activeRun?.total_net || 3014000)}</div>
+            <div className="font-bold text-emerald-600 text-sm mt-0.5">{formatINR(activeRun?.total_net || 0)}</div>
           </div>
           <div className="p-3 bg-white rounded-lg border border-slate-200">
             <span className="text-slate-400">Statutory Remittance</span>
-            <div className="font-bold text-slate-900 text-sm mt-0.5">{formatINR(activeRun?.total_deductions || 406000)}</div>
+            <div className="font-bold text-slate-900 text-sm mt-0.5">{formatINR(activeRun?.total_deductions || 0)}</div>
           </div>
         </div>
       </div>
