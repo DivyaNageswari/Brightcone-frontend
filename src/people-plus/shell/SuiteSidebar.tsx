@@ -1,4 +1,4 @@
-import { env } from '@/config/env'
+﻿import { env } from '@/config/env'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '@/auth/AuthContext'
 import { APPS, NAV_BY_ROLE, type AppKey } from '../data'
@@ -7,7 +7,7 @@ import { initials } from '@/domain/people'
 
 export function SuiteSidebar({ appKey, close }: { appKey: AppKey; close?: () => void }) {
   const { user, can, signOut } = useAuth()
-  const role = user?.role === 'hr_admin' ? 'admin' : 'employee'
+  const role = user?.role === 'hr_admin' || user?.role === 'admin' || user?.role === 'finance' ? 'admin' : 'employee'
   const app = APPS.find((entry) => entry.key === appKey)!
   const links = NAV_BY_ROLE[role][appKey].filter((item) => !item.permission || can(item.permission))
   const groups = [...new Set(links.map((item) => item.group))]
@@ -43,7 +43,7 @@ export function SuiteSidebar({ appKey, close }: { appKey: AppKey; close?: () => 
                 <NavLink
                   key={item.to}
                   to={item.to}
-                  end={item.to === '/'}
+                  end={item.to === '/' || item.to === '/payroll' || item.to === '/expenses'}
                   onClick={close}
                   className={({ isActive }) => `pp-nav-link${isActive ? ' active' : ''}`}
                 >
@@ -74,3 +74,4 @@ export function SuiteSidebar({ appKey, close }: { appKey: AppKey; close?: () => 
     </aside>
   )
 }
+

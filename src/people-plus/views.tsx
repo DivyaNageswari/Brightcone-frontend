@@ -1,4 +1,4 @@
-﻿import { useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { useAuth } from '@/auth/AuthContext'
 import { api } from '@/api/client'
@@ -14,6 +14,13 @@ import OfficeExpensePage from '@/pages/payroll/OfficeExpensePage'
 import HelpdeskQueuePage from '@/pages/engagement/HelpdeskQueuePage'
 import PayrollAdminPage from '@/pages/payroll/PayrollAdminPage'
 import ExpenseFinancePage from '@/pages/payroll/ExpenseFinancePage'
+import MonthlyPayrollPage from '@/pages/payroll/MonthlyPayrollPage'
+import PayslipRecordsPage from '@/pages/payroll/PayslipRecordsPage'
+import SalaryRevisionsPage from '@/pages/payroll/SalaryRevisionsPage'
+import PfEsiCompliancePage from '@/pages/payroll/PfEsiCompliancePage'
+import StatutoryCompliancePage from '@/pages/payroll/StatutoryCompliancePage'
+import BenefitsAdminPage from '@/pages/payroll/BenefitsAdminPage'
+import ExpenseEmployeePage from '@/pages/payroll/ExpenseEmployeePage'
 
 type UserRecord = { pid: string; email: string; name: string; role: string; status: string; created_at: string }
 type UserPage = { results?: UserRecord[]; items?: UserRecord[]; data?: UserRecord[] }
@@ -116,10 +123,19 @@ export const MyLeave = () => <SimpleView title="My leave" sub="Leave balance, re
 // Production-level Tailwind Payroll & Expense Views matching images (with full RBAC)
 export const Payroll = PayrollView
 export const PayrollDash = PayrollView
+export const MonthlyPayroll = MonthlyPayrollPage
+export const PayslipRecords = PayslipRecordsPage
+export const SalaryStructures = SalaryStructurePage
+export const SalaryRevisions = SalaryRevisionsPage
+export const PfEsiCompliance = PfEsiCompliancePage
+export const StatutoryCompliance = StatutoryCompliancePage
+export const PayrollRuns = PayrollAdminPage
+export const Benefits = BenefitsAdminPage
+
 export const Expenses = ExpenseView
-export const ExpensesAdmin = ExpenseView
-export const MyExpenses = ExpenseView
-export const MyPay = PayrollView
+export const ExpensesAdmin = ExpenseFinancePage
+export const MyExpenses = ExpenseEmployeePage
+export const MyPay = PayslipRecordsPage
 
 // Supporting domain features
 export const SignDocs = () => <SimpleView title="Sign" sub="Documents awaiting signature" />
@@ -129,5 +145,4 @@ export const Roster = () => <SimpleView title="Shift" sub="Shift schedule and at
 export const Helpdesk = HelpdeskQueuePage
 export const OfficeExpense = OfficeExpensePage
 export const PayrollAdmin = PayrollAdminPage
-export const SalaryStructures = SalaryStructurePage
 export const FinanceExpenses = ExpenseFinancePage

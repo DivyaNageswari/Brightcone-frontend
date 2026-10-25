@@ -35,3 +35,25 @@
 [data-app='plus'] {
   @apply [--ac:#0b6fdb];
 }
+
+.text-txt {
+  color: var(--text);
+}
+.text-txt-muted {
+  color: var(--muted);
+}
+.text-txt-faint {
+  color: var(--faint);
+}
+.bg-surface {
+  background-color: var(--surface);
+}
+.bg-surface-secondary {
+  background-color: var(--surface-2);
+}
+.border-line {
+  border-color: var(--line);
+}
+.shadow-card {
+  box-shadow: var(--shadow);
+}

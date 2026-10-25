@@ -28,22 +28,22 @@ export const AddInputModal: React.FC<AddInputModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
-      <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 space-y-4 animate-scale-up">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-          <h3 className="text-base font-bold text-slate-900 font-display">Add One-Time Input</h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 cursor-pointer">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
+      <div className="bg-white dark:bg-[#0f172a] rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 dark:border-slate-800 space-y-4 animate-scale-up">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+          <h3 className="text-base font-bold text-slate-900 dark:text-white font-display">Add One-Time Input</h3>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 dark:hover:text-white cursor-pointer">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Select Employee</label>
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Select Employee</label>
             <select
               value={emp}
               onChange={(e) => setEmp(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-slate-200 bg-white"
+              className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
             >
               <option value="Ananya Rao">Ananya Rao (People Ops)</option>
               <option value="Rahul Varma">Rahul Varma (Engineering)</option>
@@ -55,11 +55,11 @@ export const AddInputModal: React.FC<AddInputModalProps> = ({
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Adjustment Type</label>
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Adjustment Type</label>
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-slate-200 bg-white"
+              className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
             >
               <option value="Performance Bonus">Performance Bonus</option>
               <option value="Referral Bonus">Referral Bonus</option>
@@ -71,8 +71,8 @@ export const AddInputModal: React.FC<AddInputModalProps> = ({
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">
-              Amount (₹) — Use negative for deductions
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+              Amount (₹) - Use negative for deductions
             </label>
             <input
               type="number"
@@ -80,18 +80,18 @@ export const AddInputModal: React.FC<AddInputModalProps> = ({
               required
               value={amt}
               onChange={(e) => setAmt(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-slate-200"
+              className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Audit Notes / Reason</label>
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Audit Notes / Reason</label>
             <input
               type="text"
               placeholder="e.g. Outstanding performance bonus approved by VP"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-slate-200"
+              className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
             />
           </div>
 
@@ -99,7 +99,7 @@ export const AddInputModal: React.FC<AddInputModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-slate-700 bg-slate-100 rounded-xl hover:bg-slate-200 cursor-pointer"
+              className="px-4 py-2 text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl cursor-pointer"
             >
               Cancel
             </button>
@@ -134,25 +134,25 @@ export const PublishLockModal: React.FC<PublishLockModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
-      <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl border border-slate-200 space-y-4 animate-scale-up">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
+      <div className="bg-white dark:bg-[#0f172a] rounded-2xl max-w-lg w-full p-6 shadow-xl border border-slate-200 dark:border-slate-800 space-y-4 animate-scale-up">
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 flex items-center justify-center shrink-0">
             <Lock className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-slate-900 font-display">
+            <h3 className="text-base font-bold text-slate-900 dark:text-white font-display">
               Publish Payroll & Lock Month Permanently?
             </h3>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
               Once published, {activeRun?.month || "October 2026"} will be permanently locked against any retroactive edits.
             </p>
           </div>
         </div>
 
-        <div className="bg-amber-50/70 p-4 rounded-xl border border-amber-200/80 text-xs text-amber-900 space-y-2">
+        <div className="bg-amber-50/70 dark:bg-amber-950/40 p-4 rounded-xl border border-amber-200/80 dark:border-amber-900/50 text-xs text-amber-900 dark:text-amber-300 space-y-2">
           <div className="font-bold flex items-center gap-1.5">
-            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0" />
+            <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
             <span>Statutory Lock Rule [PAY-02]</span>
           </div>
           <p className="leading-relaxed">
@@ -164,7 +164,7 @@ export const PublishLockModal: React.FC<PublishLockModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl cursor-pointer"
+            className="px-4 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl cursor-pointer"
           >
             Cancel Review
           </button>
@@ -208,41 +208,41 @@ export const SupplementaryRunModal: React.FC<SupplementaryRunModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
-      <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 space-y-4 animate-scale-up">
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-          <h3 className="text-base font-bold text-slate-900 font-display">Create Supplementary Run</h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 cursor-pointer">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4">
+      <div className="bg-white dark:bg-[#0f172a] rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 dark:border-slate-800 space-y-4 animate-scale-up">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+          <h3 className="text-base font-bold text-slate-900 dark:text-white font-display">Create Supplementary Run</h3>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-600 dark:hover:text-white cursor-pointer">
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="bg-blue-50/60 p-3 rounded-xl border border-blue-200 text-xs text-blue-900">
+        <div className="bg-blue-50/60 dark:bg-blue-950/40 p-3 rounded-xl border border-blue-200 dark:border-blue-900/50 text-xs text-blue-900 dark:text-blue-300">
           Supplementary runs allow post-lock adjustments (such as missed reimbursements, salary arrears or joiner adjustments) without altering the closed month register.
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">Target Closed Month</label>
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Target Closed Month</label>
             <input
               type="text"
               value={suppMonth}
               onChange={(e) => setSuppMonth(e.target.value)}
-              className="w-full p-2.5 rounded-xl border border-slate-200 bg-white"
+              className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
               placeholder="e.g. October 2026"
               required
             />
           </div>
 
           <div>
-            <label className="block font-semibold text-slate-700 mb-1">
+            <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
               Reason for Supplementary Run (Audit Required)
             </label>
             <textarea
               value={suppNotes}
               onChange={(e) => setSuppNotes(e.target.value)}
               rows={3}
-              className="w-full p-2.5 rounded-xl border border-slate-200 bg-white"
+              className="w-full p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white"
               placeholder="e.g. Arrears for mid-month joinees and 3 approved travel claims received after cut-off."
               required
             />
@@ -252,7 +252,7 @@ export const SupplementaryRunModal: React.FC<SupplementaryRunModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-slate-700 bg-slate-100 rounded-xl hover:bg-slate-200 cursor-pointer"
+              className="px-4 py-2 text-slate-700 dark:text-slate-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-xl cursor-pointer"
             >
               Cancel
             </button>

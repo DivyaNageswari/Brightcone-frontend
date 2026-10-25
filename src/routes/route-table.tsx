@@ -1,4 +1,4 @@
-﻿import type { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import type { RouteObject } from 'react-router-dom'
 import { RequireAuth } from '@/auth/RequireAuth'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
@@ -18,8 +18,14 @@ import { NotFoundPage } from './NotFoundPage'
 import {
   Payroll,
   PayrollDash,
-  PayrollAdmin,
+  MonthlyPayroll,
+  PayslipRecords,
   SalaryStructures,
+  SalaryRevisions,
+  PfEsiCompliance,
+  StatutoryCompliance,
+  PayrollRuns,
+  Benefits,
   OfficeExpense,
   Expenses,
   ExpensesAdmin,
@@ -52,16 +58,32 @@ const shellChildren: RouteObject[] = [
 
   // Real Payroll & Expense Domain Routes (PAY-01..16, EXP-01..07)
   { path: 'payroll', element: page(<Payroll />, 'payroll') },
-  { path: 'pay', element: page(<MyPay />, 'pay') },
-  { path: 'payroll/admin', element: page(<PayrollAdmin />, 'payroll-admin') },
   { path: 'payroll/dashboard', element: page(<PayrollDash />, 'payroll-dashboard') },
+  { path: 'payroll/monthly', element: page(<MonthlyPayroll />, 'payroll-monthly') },
   { path: 'payroll/salary-structure', element: page(<SalaryStructures />, 'salary-structure') },
-  { path: 'payroll/office-expense', element: page(<OfficeExpense />, 'payroll-office-expense') },
-  { path: 'office-expenses', element: page(<OfficeExpense />, 'office-expenses') },
+  { path: 'payroll/salary-revisions', element: page(<SalaryRevisions />, 'salary-revisions') },
+  { path: 'payroll/payslips', element: page(<PayslipRecords />, 'payroll-payslips') },
+  { path: 'payroll/pf-esi', element: page(<PfEsiCompliance />, 'payroll-pf-esi') },
+  { path: 'payroll/statutory', element: page(<StatutoryCompliance />, 'payroll-statutory') },
+  { path: 'payroll/runs', element: page(<PayrollRuns />, 'payroll-runs') },
+  { path: 'payroll/benefits', element: page(<Benefits />, 'payroll-benefits') },
+
+  // Backwards-compatible legacy payroll aliases
+  { path: 'pay', element: page(<MyPay />, 'pay') },
+  { path: 'payroll/admin', element: page(<MonthlyPayroll />, 'payroll-admin') },
+
+  // Expense Domain Routes
   { path: 'expenses', element: page(<Expenses />, 'expenses') },
+  { path: 'expenses/office', element: page(<OfficeExpense />, 'expenses-office') },
+  { path: 'expenses/claims', element: page(<ExpensesAdmin />, 'expenses-claims') },
+  { path: 'expenses/my-claims', element: page(<MyExpenses />, 'expenses-my-claims') },
   { path: 'my-expenses', element: page(<MyExpenses />, 'my-expenses') },
+  { path: 'office-expenses', element: page(<OfficeExpense />, 'office-expenses') },
+  { path: 'payroll/office-expense', element: page(<OfficeExpense />, 'payroll-office-expense') },
   { path: 'payroll/expenses', element: page(<MyExpenses />, 'payroll-expenses') },
   { path: 'payroll/finance-expenses', element: page(<ExpensesAdmin />, 'finance-expenses') },
+
+  // Engagement & Helpdesk
   { path: 'helpdesk', element: page(<Helpdesk />, 'helpdesk') },
   { path: 'engagement/helpdesk', element: page(<Helpdesk />, 'engagement-helpdesk') },
   { path: 'feed', element: page(<Feed />, 'feed') },

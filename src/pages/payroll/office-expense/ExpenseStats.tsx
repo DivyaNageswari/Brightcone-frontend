@@ -99,3 +99,4 @@ export const ExpenseStats: React.FC<Props> = ({ expenses }) => {
     </div>
   );
 };
+

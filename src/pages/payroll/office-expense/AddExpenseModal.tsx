@@ -215,3 +215,4 @@ export const AddExpenseModal: React.FC<Props> = ({ isOpen, onClose, onSave }) =>
     </div>
   );
 };
+

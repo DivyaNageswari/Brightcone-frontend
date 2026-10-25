@@ -54,7 +54,7 @@ export const ExpenseAdminDashboard: React.FC = () => {
               <span>Export</span>
             </button>
             <button
-              onClick={() => navigate('/payroll/finance-expenses')}
+              onClick={() => navigate('/expenses/claims')}
               className="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-950 text-sm font-bold flex items-center gap-2 transition-all shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
             >
               <FileCheck size={17} className="text-amber-700" />
@@ -78,22 +78,22 @@ export const ExpenseAdminDashboard: React.FC = () => {
       </div>
 
       {/* Bottom Quick Links Banner: Office Expenses & GST */}
-      <div className="bg-[#10192A]/90 border border-[#1E2D4A] rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="bg-white dark:bg-[#10192A]/90 border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-sm">
         <div className="flex items-center gap-3.5">
-          <div className="w-10 h-10 rounded-xl bg-amber-950/60 border border-amber-800/40 flex items-center justify-center text-amber-400 shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/40 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
             <Building2 size={20} />
           </div>
           <div>
-            <div className="text-sm font-semibold text-white">Office Expenses & GST Claims (EXP-06)</div>
-            <div className="text-xs text-slate-400 mt-0.5">
+            <div className="text-sm font-semibold text-slate-900 dark:text-white">Office Expenses & GST Claims (EXP-06)</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Track vendor invoices, input tax credit eligibility and department operational budgets.
             </div>
           </div>
         </div>
 
         <button
-          onClick={() => navigate('/payroll/office-expense')}
-          className="px-4 py-2 rounded-xl bg-amber-950/60 hover:bg-amber-900/60 text-amber-300 hover:text-amber-200 text-xs font-semibold flex items-center gap-2 border border-amber-800/50 transition-colors"
+          onClick={() => navigate('/expenses/office')}
+          className="px-4 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:hover:bg-amber-900/60 dark:text-amber-300 hover:text-amber-900 dark:hover:text-amber-200 text-xs font-semibold flex items-center gap-2 border border-amber-200 dark:border-amber-800/50 transition-colors"
         >
           <span>Open Office Ledger</span>
           <ArrowUpRight size={14} />

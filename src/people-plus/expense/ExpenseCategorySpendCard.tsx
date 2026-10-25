@@ -9,22 +9,22 @@ export const ExpenseCategorySpendCard: React.FC = () => {
   ]
 
   return (
-    <div className="bg-[#10192A]/90 border border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col justify-between h-full">
+    <div className="bg-white dark:bg-[#10192A]/90 border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col justify-between h-full">
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-base font-semibold text-white">Spend by category</h3>
-          <span className="text-xs text-slate-400">Current quarter</span>
+          <h3 className="text-base font-semibold text-slate-900 dark:text-white">Spend by category</h3>
+          <span className="text-xs text-slate-500 dark:text-slate-400">Current quarter</span>
         </div>
 
         <div className="space-y-4 my-2">
           {categories.map((c) => (
             <div key={c.name} className="space-y-1.5">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-300 font-medium">{c.name}</span>
-                <span className="text-white font-bold">{c.amount}</span>
+                <span className="text-slate-700 dark:text-slate-300 font-medium">{c.name}</span>
+                <span className="text-slate-900 dark:text-white font-bold">{c.amount}</span>
               </div>
 
-              <div className="w-full h-2 rounded-full bg-slate-800/80 overflow-hidden">
+              <div className="w-full h-2 rounded-full bg-slate-100 dark:bg-slate-800/80 overflow-hidden">
                 <div
                   className={`h-full rounded-full ${c.barColor} transition-all duration-500`}
                   style={{ width: `${c.pct}%` }}
@@ -35,9 +35,9 @@ export const ExpenseCategorySpendCard: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-6 pt-4 border-t border-slate-800 text-xs text-slate-400">
+      <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
         <p className="flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 dark:bg-amber-400 shrink-0" />
           <span>Claims above ₹25,000 also need Finance approval</span>
         </p>
       </div>

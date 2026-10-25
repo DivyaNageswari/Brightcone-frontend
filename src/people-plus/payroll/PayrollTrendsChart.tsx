@@ -26,15 +26,15 @@ export const PayrollTrendsChart: React.FC = () => {
   const areaPoints = `${getX(0)},${height} ${points} ${getX(data.length - 1)},${height}`
 
   return (
-    <div className="bg-[#10192A]/90 border border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+    <div className="bg-white dark:bg-[#10192A]/90 border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col justify-between">
       <div className="flex items-center justify-between mb-4">
         <div>
-          <h3 className="text-base font-semibold text-white">Gross payroll, last 6 months</h3>
-          <p className="text-xs text-slate-400 mt-0.5">Historical monthly payroll expenditure trend</p>
+          <h3 className="text-base font-semibold text-slate-900 dark:text-white">Gross payroll, last 6 months</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Historical monthly payroll expenditure trend</p>
         </div>
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs font-medium text-emerald-400">Stable growth</span>
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Stable growth</span>
         </div>
       </div>
 
@@ -53,8 +53,8 @@ export const PayrollTrendsChart: React.FC = () => {
           </defs>
 
           {/* Grid lines */}
-          <line x1={paddingX} y1={getY(200)} x2={width - paddingX} y2={getY(200)} stroke="#1e293b" strokeDasharray="3 3" />
-          <line x1={paddingX} y1={getY(210)} x2={width - paddingX} y2={getY(210)} stroke="#1e293b" strokeDasharray="3 3" />
+          <line x1={paddingX} y1={getY(200)} x2={width - paddingX} y2={getY(200)} stroke="currentColor" className="text-slate-200 dark:text-slate-800" strokeDasharray="3 3" />
+          <line x1={paddingX} y1={getY(210)} x2={width - paddingX} y2={getY(210)} stroke="currentColor" className="text-slate-200 dark:text-slate-800" strokeDasharray="3 3" />
 
           {/* Filled Area */}
           <polygon points={areaPoints} fill="url(#payrollAreaGrad)" />
@@ -81,7 +81,7 @@ export const PayrollTrendsChart: React.FC = () => {
                   cx={cx}
                   cy={cy}
                   r={isHovered ? 6 : 4}
-                  className="fill-emerald-400 stroke-[#10192A] stroke-2 transition-all duration-150"
+                  className="fill-emerald-500 stroke-white dark:stroke-[#10192A] stroke-2 transition-all duration-150"
                 />
                 {isHovered && (
                   <g>
@@ -91,13 +91,13 @@ export const PayrollTrendsChart: React.FC = () => {
                       width="72"
                       height="22"
                       rx="6"
-                      className="fill-emerald-950/95 stroke-emerald-600/60 stroke"
+                      className="fill-slate-900 dark:fill-emerald-950/95 stroke-slate-700 dark:stroke-emerald-600/60 stroke"
                     />
                     <text
                       x={cx}
                       y={cy - 15}
                       textAnchor="middle"
-                      className="fill-emerald-300 text-[11px] font-bold"
+                      className="fill-white dark:fill-emerald-300 text-[11px] font-bold"
                     >
                       {d.label}
                     </text>
@@ -108,7 +108,7 @@ export const PayrollTrendsChart: React.FC = () => {
                   x={cx}
                   y={height - 6}
                   textAnchor="middle"
-                  className="fill-slate-400 text-xs font-medium"
+                  className="fill-slate-500 dark:fill-slate-400 text-xs font-medium"
                 >
                   {d.month}
                 </text>

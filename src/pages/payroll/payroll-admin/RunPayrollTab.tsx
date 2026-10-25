@@ -1,5 +1,5 @@
-import React from "react";
-import { CheckCircle2, Lock, ArrowRight, ArrowLeft, Check } from "lucide-react";
+﻿import React from "react";
+import { Lock, ArrowLeft, Check, Users, Banknote, Receipt, CheckCircle } from "lucide-react";
 import {
   type PayrollRun,
   type AttendanceSyncItem,
@@ -53,162 +53,157 @@ export const RunPayrollTab: React.FC<Props> = ({
 }) => {
   return (
     <div className="space-y-6">
-      <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-100 gap-3">
-          <div>
-            <h3 className="text-lg font-bold font-display text-slate-900">
-              {activeRun ? activeRun.month : "October 2026"} Run
-            </h3>
-            <span className="text-xs text-slate-500 font-sans">
-              Target Disbursal Date: 31st of the month � Schedule: Monthly Regular
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            {activeRun?.is_locked ? (
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                Month Locked & Published
-              </span>
-            ) : (
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-                Step {currentStep} of 5 in progress
-              </span>
-            )}
-          </div>
+      {/* Stepper Card matching Image 1 */}
+      <div className="bg-white dark:bg-[#0f172a]/90 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div className="flex items-center justify-between pb-5 border-b border-slate-200 dark:border-slate-800/80">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+            {activeRun ? activeRun.month : "October 2026"}
+          </h2>
+          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Pay date Oct 31</span>
         </div>
 
-        <div className="mt-6">
-          <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
-            {paySteps.map((step, idx) => {
-              const stepNum = idx + 1;
-              const isDone = activeRun?.is_locked || stepNum < currentStep;
-              const isCur = !activeRun?.is_locked && stepNum === currentStep;
+        {/* 5 Step boxes in a row */}
+        <div className="grid grid-cols-1 sm:grid-cols-5 gap-3 mt-5">
+          {paySteps.map((step, idx) => {
+            const stepNum = idx + 1;
+            const isDone = activeRun?.is_locked || stepNum < currentStep;
+            const isCur = !activeRun?.is_locked && stepNum === currentStep;
 
-              return (
-                <div
-                  key={step.title}
-                  onClick={() => !activeRun?.is_locked && setCurrentStep(stepNum)}
-                  className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-                    isDone
-                      ? "bg-emerald-50/50 border-emerald-200 text-slate-800"
-                      : isCur
-                      ? "bg-blue-50/80 border-[#0B6FDB] text-slate-900 shadow-xs ring-2 ring-blue-500/20"
-                      : "bg-slate-50/70 border-slate-200 text-slate-400 hover:border-slate-300"
-                  }`}
-                >
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <span
-                      className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                        isDone
-                          ? "bg-emerald-600 text-white"
-                          : isCur
-                          ? "bg-[#0B6FDB] text-white"
-                          : "bg-slate-200 text-slate-500"
-                      }`}
-                    >
-                      {isDone ? <Check className="w-3.5 h-3.5" /> : stepNum}
-                    </span>
-                    <span className="text-xs font-bold leading-tight line-clamp-1">{step.title}</span>
-                  </div>
-                  <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed">
-                    {step.desc}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            {currentStep > 1 && !activeRun?.is_locked && (
-              <button
-                onClick={onPreviousStep}
-                className="px-4 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer"
+            return (
+              <div
+                key={step.title}
+                onClick={() => !activeRun?.is_locked && setCurrentStep(stepNum)}
+                className={`p-4 rounded-2xl border text-left transition-all cursor-pointer ${
+                  isCur
+                    ? "bg-blue-50 border-blue-500 text-blue-900 shadow-md ring-1 ring-blue-400/30 dark:bg-[#132d56] dark:border-blue-500 dark:text-white"
+                    : isDone
+                    ? "bg-emerald-50/60 border-emerald-200 text-slate-800 dark:bg-[#0b1322] dark:border-emerald-900/40 dark:text-slate-200"
+                    : "bg-slate-50 border-slate-200 text-slate-600 hover:border-slate-300 dark:bg-[#0b1322]/60 dark:border-slate-800/80 dark:text-slate-400 dark:hover:border-slate-700"
+                }`}
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
-                Previous Step
-              </button>
-            )}
-            <span className="text-xs text-slate-500">
-              {activeRun?.is_locked
-                ? "Locked run is view-only. Modifications require a supplementary payroll run."
-                : `Currently reviewing: Step ${currentStep} (${paySteps[currentStep - 1].title})`}
-            </span>
-          </div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span
+                    className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                      isDone
+                        ? "bg-emerald-500 text-white"
+                        : isCur
+                        ? "bg-blue-600 text-white"
+                        : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                    }`}
+                  >
+                    {isDone ? <Check className="w-3.5 h-3.5" /> : stepNum}
+                  </span>
+                </div>
+                <div className="text-xs font-bold leading-snug line-clamp-2">
+                  {step.title}
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
-          <div className="flex items-center gap-3">
-            {!activeRun?.is_locked && (
-              <>
-                {currentStep < 5 ? (
-                  <button
-                    onClick={onAdvanceStep}
-                    className="px-5 py-2.5 text-xs font-semibold text-white bg-[#0B6FDB] hover:bg-[#0958b0] rounded-xl transition-all shadow-sm flex items-center gap-2 cursor-pointer"
-                  >
-                    Complete Step {currentStep} & Proceed
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                ) : (
-                  <button
-                    onClick={onOpenPublishModal}
-                    className="px-5 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl transition-all shadow-sm flex items-center gap-2 cursor-pointer"
-                  >
-                    <Lock className="w-4 h-4" />
-                    Disburse & Publish Payslips (Lock Month)
-                  </button>
-                )}
-              </>
-            )}
-          </div>
+        {/* Action Button */}
+        <div className="mt-5 flex items-center gap-3">
+          {!activeRun?.is_locked && (
+            <>
+              {currentStep < 5 ? (
+                <button
+                  onClick={onAdvanceStep}
+                  className="px-5 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-all shadow-md shadow-blue-600/30 flex items-center gap-2 cursor-pointer hover:scale-[1.02]"
+                >
+                  Mark step complete
+                </button>
+              ) : (
+                <button
+                  onClick={onOpenPublishModal}
+                  className="px-5 py-2.5 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-500 rounded-xl transition-all shadow-md shadow-emerald-600/30 flex items-center gap-2 cursor-pointer"
+                >
+                  <Lock className="w-4 h-4" />
+                  Disburse & publish payslips
+                </button>
+              )}
+            </>
+          )}
+
+          {currentStep > 1 && !activeRun?.is_locked && (
+            <button
+              onClick={onPreviousStep}
+              className="px-4 py-2.5 text-xs font-medium text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 dark:text-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 rounded-xl transition-colors flex items-center gap-1.5 cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              Previous step
+            </button>
+          )}
         </div>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
-          <span className="text-xs text-slate-500">Eligible Employees</span>
-          <div className="text-xl font-bold font-display text-slate-900 mt-1">
+      {/* 4 KPI Cards matching Image 1 */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="p-5 rounded-2xl bg-white dark:bg-[#0f172a]/90 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+            <span className="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <Users size={16} />
+            </span>
+            <span>Employees</span>
+          </div>
+          <div className="text-3xl font-extrabold text-slate-900 dark:text-white mt-3">
             {activeRun?.total_employees || 14}
           </div>
-          <span className="text-[11px] text-emerald-600 font-medium">100% attendance synced</span>
+          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">Included in this run</div>
         </div>
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
-          <span className="text-xs text-slate-500">Gross Payroll</span>
-          <div className="text-xl font-bold font-display text-slate-900 mt-1">
-            {formatINR(activeRun?.total_gross || 0)}
+
+        <div className="p-5 rounded-2xl bg-white dark:bg-[#0f172a]/90 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+            <span className="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <Banknote size={16} />
+            </span>
+            <span>Gross pay</span>
           </div>
-          <span className="text-[11px] text-slate-500">Includes bonuses & allowances</span>
+          <div className="text-3xl font-extrabold text-slate-900 dark:text-white mt-3">
+            {formatINR(activeRun?.total_gross || 4942467)}
+          </div>
+          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">This month</div>
         </div>
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
-          <span className="text-xs text-slate-500">Total Deductions</span>
-          <div className="text-xl font-bold font-display text-slate-900 mt-1">
-            {formatINR(activeRun?.total_deductions || 0)}
+
+        <div className="p-5 rounded-2xl bg-white dark:bg-[#0f172a]/90 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+            <span className="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <Receipt size={16} />
+            </span>
+            <span>Deductions</span>
           </div>
-          <span className="text-[11px] text-slate-500">PF, PT, TDS & shortfalls</span>
+          <div className="text-3xl font-extrabold text-slate-900 dark:text-white mt-3">
+            {formatINR(activeRun?.total_deductions || 1057000)}
+          </div>
+          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">PF, PT and TDS</div>
         </div>
-        <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs">
-          <span className="text-xs text-slate-500">Net Disbursement</span>
-          <div className="text-xl font-bold font-display text-emerald-600 mt-1">
-            {formatINR(activeRun?.total_net || 0)}
+
+        <div className="p-5 rounded-2xl bg-white dark:bg-[#0f172a]/90 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+            <span className="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <CheckCircle size={16} />
+            </span>
+            <span>Net payout</span>
           </div>
-          <span className="text-[11px] text-emerald-700 font-medium">To bank ledger</span>
+          <div className="text-3xl font-extrabold text-slate-900 dark:text-white mt-3">
+            {formatINR(activeRun?.total_net || 3885467)}
+          </div>
+          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">To bank accounts</div>
         </div>
       </div>
 
+      {/* Step Detail Content */}
       {currentStep === 1 && (
         <AttendanceStep attendance={attendance} onSync={onSyncAttendance} />
       )}
-
       {currentStep === 2 && (
         <AdjustmentsStep
           inputs={inputs}
-          isLocked={!!activeRun?.is_locked}
           onOpenAddModal={onOpenAddModal}
           onRemoveInput={onRemoveInput}
         />
       )}
-
       {currentStep === 3 && <VarianceStep variances={variances} />}
-
       {currentStep === 4 && (
         <ApprovalStep
           activeRun={activeRun}
@@ -218,7 +213,6 @@ export const RunPayrollTab: React.FC<Props> = ({
           setFinanceComments={setFinanceComments}
         />
       )}
-
       {currentStep === 5 && (
         <DisburseStep
           activeRun={activeRun}

@@ -1,6 +1,6 @@
 ﻿import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Plus, Receipt, Clock, CheckCircle2, AlertCircle, FileText } from 'lucide-react'
+import { Plus, Receipt, Clock, CheckCircle2, FileText } from 'lucide-react'
 import { useAuth } from '@/auth/AuthContext'
 import { NewClaimModal } from './NewClaimModal'
 import type { ExpenseClaim } from './types'
@@ -43,7 +43,6 @@ export const ExpenseEmployeeDashboard: React.FC = () => {
     try {
       const res = await axios.get<ExpenseClaim[]>('/api/expenses')
       if (res.data && res.data.length > 0) {
-        // Filter claims to this user or fallback to all user's claims
         const myClaims = res.data.filter(
           (c) =>
             c.employee_id === user?.pid ||
@@ -112,93 +111,93 @@ export const ExpenseEmployeeDashboard: React.FC = () => {
 
       {/* 4 Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-[#10192A]/90 border border-[#1E2D4A] rounded-2xl p-5 hover:border-amber-500/40 transition-all">
+        <div className="bg-white dark:bg-[#10192A]/90 border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-5 hover:border-amber-500/40 transition-all shadow-sm">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-950/70 border border-amber-800/40 flex items-center justify-center text-amber-400">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/70 border border-amber-200 dark:border-amber-800/40 flex items-center justify-center text-amber-600 dark:text-amber-400">
               <Clock size={20} />
             </div>
-            <span className="text-sm font-medium text-slate-300">Pending Review</span>
+            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Pending Review</span>
           </div>
-          <div className="text-2xl lg:text-3xl font-bold text-white mb-2">
+          <div className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white mb-2">
             ₹{pendingTotal.toLocaleString('en-IN')}
           </div>
-          <div className="text-xs text-rose-400 font-medium">Under manager verification</div>
+          <div className="text-xs text-rose-600 dark:text-rose-400 font-semibold">Under manager verification</div>
         </div>
 
-        <div className="bg-[#10192A]/90 border border-[#1E2D4A] rounded-2xl p-5 hover:border-amber-500/40 transition-all">
+        <div className="bg-white dark:bg-[#10192A]/90 border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-5 hover:border-amber-500/40 transition-all shadow-sm">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-950/70 border border-amber-800/40 flex items-center justify-center text-amber-400">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/70 border border-amber-200 dark:border-amber-800/40 flex items-center justify-center text-amber-600 dark:text-amber-400">
               <CheckCircle2 size={20} />
             </div>
-            <span className="text-sm font-medium text-slate-300">Approved for Payout</span>
+            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Approved for Payout</span>
           </div>
-          <div className="text-2xl lg:text-3xl font-bold text-white mb-2">
+          <div className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white mb-2">
             ₹{approvedTotal.toLocaleString('en-IN')}
           </div>
-          <div className="text-xs text-slate-400">Paid with Oct 31 payroll</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">Paid with Oct 31 payroll</div>
         </div>
 
-        <div className="bg-[#10192A]/90 border border-[#1E2D4A] rounded-2xl p-5 hover:border-amber-500/40 transition-all">
+        <div className="bg-white dark:bg-[#10192A]/90 border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-5 hover:border-amber-500/40 transition-all shadow-sm">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-950/70 border border-amber-800/40 flex items-center justify-center text-amber-400">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/70 border border-amber-200 dark:border-amber-800/40 flex items-center justify-center text-amber-600 dark:text-amber-400">
               <Receipt size={20} />
             </div>
-            <span className="text-sm font-medium text-slate-300">Reimbursed YTD</span>
+            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Reimbursed YTD</span>
           </div>
-          <div className="text-2xl lg:text-3xl font-bold text-white mb-2">
+          <div className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white mb-2">
             ₹{reimbursedTotal.toLocaleString('en-IN')}
           </div>
-          <div className="text-xs text-emerald-400 font-medium">Processed to bank</div>
+          <div className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Processed to bank</div>
         </div>
 
-        <div className="bg-[#10192A]/90 border border-[#1E2D4A] rounded-2xl p-5 hover:border-amber-500/40 transition-all">
+        <div className="bg-white dark:bg-[#10192A]/90 border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-5 hover:border-amber-500/40 transition-all shadow-sm">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-950/70 border border-amber-800/40 flex items-center justify-center text-amber-400">
+            <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/70 border border-amber-200 dark:border-amber-800/40 flex items-center justify-center text-amber-600 dark:text-amber-400">
               <FileText size={20} />
             </div>
-            <span className="text-sm font-medium text-slate-300">Total Claims</span>
+            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Claims</span>
           </div>
-          <div className="text-2xl lg:text-3xl font-bold text-white mb-2">{claims.length}</div>
-          <div className="text-xs text-slate-400">FY 2026-27 records</div>
+          <div className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white mb-2">{claims.length}</div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">FY 2026-27 records</div>
         </div>
       </div>
 
       {/* Claims List Table */}
-      <div className="bg-[#10192A]/90 border border-[#1E2D4A] rounded-2xl p-6 shadow-sm">
+      <div className="bg-white dark:bg-[#10192A]/90 border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-base font-semibold text-white">My Claims History</h3>
-          <span className="text-xs text-slate-400">Filtered to your employee profile</span>
+          <h3 className="text-base font-semibold text-slate-900 dark:text-white">My Claims History</h3>
+          <span className="text-xs text-slate-500 dark:text-slate-400">Filtered to your employee profile</span>
         </div>
 
-        <div className="divide-y divide-slate-800/80">
+        <div className="divide-y divide-slate-200 dark:divide-slate-800/80">
           {claims.map((c) => (
-            <div key={c.id} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-900/30 px-2 rounded-lg transition-colors">
+            <div key={c.id} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50 dark:hover:bg-slate-900/30 px-2 rounded-lg transition-colors">
               <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-amber-950/60 border border-amber-800/40 flex items-center justify-center text-amber-400 shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/40 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
                   <Receipt size={18} />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-white">
-                    {c.category} <span className="text-slate-400 font-normal">· {c.date}</span>
+                  <div className="text-sm font-semibold text-slate-900 dark:text-white">
+                    {c.category} <span className="text-slate-500 dark:text-slate-400 font-normal">• {c.date}</span>
                   </div>
-                  <div className="text-xs text-slate-400 mt-0.5">{c.description}</div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{c.description}</div>
                 </div>
               </div>
 
               <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0">
-                <span className="text-base font-bold text-white">
+                <span className="text-base font-bold text-slate-900 dark:text-white">
                   ₹{c.amount.toLocaleString('en-IN')}
                 </span>
 
                 <span
                   className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${
                     c.status === 'Paid'
-                      ? 'bg-emerald-950/80 border-emerald-800/60 text-emerald-400'
+                      ? 'bg-emerald-50 dark:bg-emerald-950/80 border-emerald-200 dark:border-emerald-800/60 text-emerald-700 dark:text-emerald-400'
                       : c.status === 'Approved'
-                      ? 'bg-sky-950/80 border-sky-800/60 text-sky-400'
+                      ? 'bg-sky-50 dark:bg-sky-950/80 border-sky-200 dark:border-sky-800/60 text-sky-700 dark:text-sky-400'
                       : c.status === 'Rejected'
-                      ? 'bg-rose-950/80 border-rose-800/60 text-rose-400'
-                      : 'bg-amber-950/80 border-amber-800/60 text-amber-400'
+                      ? 'bg-rose-50 dark:bg-rose-950/80 border-rose-200 dark:border-rose-800/60 text-rose-700 dark:text-rose-400'
+                      : 'bg-amber-50 dark:bg-amber-950/80 border-amber-200 dark:border-amber-800/60 text-amber-700 dark:text-amber-400'
                   }`}
                 >
                   {c.status}

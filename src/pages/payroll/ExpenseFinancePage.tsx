@@ -237,7 +237,7 @@ export const ExpenseFinancePage: React.FC = () => {
             <span>Total Disbursed</span>
           </div>
           <div className="font-sora text-2xl font-bold text-txt mt-2">
-            ?{totalPaidAmount.toLocaleString("en-IN")}
+            ₹{totalPaidAmount.toLocaleString("en-IN")}
           </div>
           <div className="text-[11px] text-txt-faint mt-1">Processed reimbursement spend</div>
         </div>
@@ -317,7 +317,7 @@ export const ExpenseFinancePage: React.FC = () => {
                     </td>
                     <td className="p-3.5 text-txt-faint">{claim.date}</td>
                     <td className="p-3.5 font-sora font-semibold text-txt">
-                      ?{claim.amount.toLocaleString("en-IN")}
+                      ₹{claim.amount.toLocaleString("en-IN")}
                     </td>
                     <td className="p-3.5">
                       <span
@@ -385,5 +385,6 @@ export const ExpenseFinancePage: React.FC = () => {
 };
 
 export default ExpenseFinancePage;
+
 
 
