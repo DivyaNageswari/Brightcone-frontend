@@ -1,4 +1,4 @@
-﻿export type AppKey = 'people' | 'recruit' | 'payroll' | 'expense' | 'sign' | 'connect' | 'learn' | 'shift' | 'plus'
+export type AppKey = 'people' | 'recruit' | 'payroll' | 'expense' | 'sign' | 'connect' | 'learn' | 'shift' | 'plus'
 export type AppDefinition = { key: AppKey; name: string; icon: string; color: string; description: string; path: string }
 export type SideLink = { label: string; to: string; icon: string; group: string; permission?: string; comingSoon?: boolean }
 
@@ -47,6 +47,7 @@ export const NAV_BY_ROLE: Record<'admin' | 'employee', Record<AppKey, SideLink[]
       link('Payslip records', '/payroll/payslips', 'download', 'Payroll & compliance'),
       link('PF & ESI compliance', '/payroll/pf-esi', 'shield', 'Payroll & compliance'),
       link('Statutory compliance', '/payroll/statutory', 'statutory', 'Payroll & compliance'),
+      link('Tax declarations', '/payroll/tax-declarations', 'doc', 'Payroll & compliance'),
       link('Payroll runs', '/payroll/runs', 'pay', 'Payroll'),
       link('Benefits', '/payroll/benefits', 'heart', 'Payroll'),
     ],
@@ -81,6 +82,7 @@ export const NAV_BY_ROLE: Record<'admin' | 'employee', Record<AppKey, SideLink[]
     payroll: [
       link('Payroll dashboard', '/payroll', 'dashboard', 'Overview'),
       link('Payslip records', '/payroll/payslips', 'download', 'Payroll & compliance'),
+      link('Tax declarations', '/payroll/tax-declarations', 'doc', 'Payroll & compliance'),
       link('Salary structure', '/payroll/salary-structure', 'list', 'Payroll & compliance'),
     ],
     expense: [

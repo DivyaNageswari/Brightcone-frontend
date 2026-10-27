@@ -21,6 +21,7 @@ import PfEsiCompliancePage from '@/pages/payroll/PfEsiCompliancePage'
 import StatutoryCompliancePage from '@/pages/payroll/StatutoryCompliancePage'
 import BenefitsAdminPage from '@/pages/payroll/BenefitsAdminPage'
 import ExpenseEmployeePage from '@/pages/payroll/ExpenseEmployeePage'
+import TaxDeclarationsPage from '@/pages/payroll/TaxDeclarationsPage'
 
 type UserRecord = { pid: string; email: string; name: string; role: string; status: string; created_at: string }
 type UserPage = { results?: UserRecord[]; items?: UserRecord[]; data?: UserRecord[] }
@@ -131,6 +132,7 @@ export const PfEsiCompliance = PfEsiCompliancePage
 export const StatutoryCompliance = StatutoryCompliancePage
 export const PayrollRuns = PayrollAdminPage
 export const Benefits = BenefitsAdminPage
+export const TaxDeclarations = TaxDeclarationsPage
 
 export const Expenses = ExpenseView
 export const ExpensesAdmin = ExpenseFinancePage

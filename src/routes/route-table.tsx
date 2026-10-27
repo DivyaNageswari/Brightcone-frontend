@@ -26,6 +26,7 @@ import {
   StatutoryCompliance,
   PayrollRuns,
   Benefits,
+  TaxDeclarations,
   OfficeExpense,
   Expenses,
   ExpensesAdmin,
@@ -67,6 +68,9 @@ const shellChildren: RouteObject[] = [
   { path: 'payroll/statutory', element: page(<StatutoryCompliance />, 'payroll-statutory') },
   { path: 'payroll/runs', element: page(<PayrollRuns />, 'payroll-runs') },
   { path: 'payroll/benefits', element: page(<Benefits />, 'payroll-benefits') },
+  { path: 'payroll/tax-declarations', element: page(<TaxDeclarations />, 'payroll-tax-declarations') },
+  { path: 'payroll/tax-declaration', element: page(<TaxDeclarations />, 'payroll-tax-declaration') },
+  { path: 'tax-declarations', element: page(<TaxDeclarations />, 'tax-declarations') },
 
   // Backwards-compatible legacy payroll aliases
   { path: 'pay', element: page(<MyPay />, 'pay') },
